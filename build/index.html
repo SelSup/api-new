@@ -5,11 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <meta
-            name="description"
-            content="API SelSup — программный интерфейс для работы с сервисом SelSup. Даёт возможность работать со всеми функциями SelSup из вашей системы. Для использования API добавьте новый токен на странице:https://selsup.ru/application/integration/pageApi. Добавленный токен необходимо передавать во всех запросах к API SelSup, в заголовке Authorization. API можно использовать без ограничений на тарифе Выделенный сервер."
-        >
-    <title>Документация API SelSup</title>
+    <title>API Documentation</title>
 
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -288,14 +284,11 @@
     </style>
     <link href="stylesheets/screen-9c19b03a.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-966d6edc.css" rel="stylesheet" media="print" />
-      <script src="javascripts/all-b12a2749.js"></script>
+      <script src="javascripts/all_nosearch-18c3ed8e.js"></script>
 
-    <script>
-      $(function() { setupCodeCopy(); });
-    </script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;]">
+  <body class="index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -304,19 +297,23 @@
     </a>
     <div class="toc-wrapper">
       <img src="images/logo-77199cc0.png" class="logo" alt="" />
-        <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-        </div>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
             <a href="#3394112aa9" class="toc-h1 toc-link" data-title="Введение">Введение</a>
           </li>
           <li>
             <a href="#93900fccba" class="toc-h1 toc-link" data-title="Авторизация">Авторизация</a>
+          </li>
+          <li>
+            <a href="#5179979ddc" class="toc-h1 toc-link" data-title="Товары">Товары</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#4236a64b12" class="toc-h2 toc-link" data-title="Поиск товаров">Поиск товаров</a>
+                  </li>
+                  <li>
+                    <a href="#1cfa8f12c1" class="toc-h2 toc-link" data-title="Создание модели">Создание модели</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#22ac8458d7" class="toc-h1 toc-link" data-title="Заказы">Заказы</a>
@@ -333,23 +330,23 @@
               </ul>
           </li>
       </ul>
-        <ul class="toc-footer">
-            <li><a href='https://selsup.ru/application/integration/pageApi'>Добавить ключ API</a></li>
-            <li><a href='https://api.selsup.ru/all.html'>Список всех методов</a></li>
-            <li><a href='https://github.com/slatedocs/slate'>Сделано в Slate</a></li>
-        </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='3394112aa9'>Введение</h1>
-<p>SelSup API — программный интерфейс для работы с сервисом SelSup. Он даёт возможность обмениваться информацией между системой продавца и SelSup.</p>
+<p>SelSup API — программный интерфейс для работы с сервисом SelSup. Он даёт возможность обмениваться информацией между
+системой продавца и SelSup.</p>
 
-<p>Методы API позволяют использовать весь функционал сервиса SelSup для работы с маркетплейсами Ozon, Wildberries, Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авито.</p>
+<p>Методы API позволяют использовать весь функционал сервиса SelSup для работы с маркетплейсами Ozon, Wildberries,
+Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авито.</p>
 
-<p>SelSup позволяет создавать карточки на всех маркетплейсах, заполнять параметры, вести учет остатков товаров, принимать заказы по FBS с маркетплейсов и интернет-магазина, обновлять остатки на позиции, по которым пришел заказ. Вести аналитику продаж и учет финансов.</p>
+<p>SelSup позволяет создавать карточки на всех маркетплейсах, заполнять параметры, вести учет остатков товаров, принимать
+заказы по FBS с маркетплейсов и интернет-магазина, обновлять остатки на позиции, по которым пришел заказ. Вести
+аналитику продаж и учет финансов.</p>
 
-<p>С помощью API вы можете подключить любые источники заказов к SelSup и вести быстрый учет остатков с маркетплейсов, сайта и других источников заказов.</p>
+<p>С помощью API вы можете подключить любые источники заказов к SelSup и вести быстрый учет остатков с маркетплейсов, сайта
+и других источников заказов.</p>
 
 <p>Данная документация в разработке, описаны пока не все методы. Вы можете посмотреть полный список методов по ссылке:
 <a href='https://api.selsup.ru/all.html'>https://api.selsup.ru/all.html</a></p>
@@ -370,13 +367,409 @@ curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</
 <p>Перейдите на страницу настройки API:
 <a href='https://selsup.ru/application/integration/pageApi'>https://selsup.ru/application/integration/pageApi</a></p>
 
-<p>Введите название нового токена в поле и нажмите кнопку Добавить токен. Название должно быть уникальным в рамках вашего аккаунта. Рекомендуется для разных сервисов использовать свои токены, чтобы в любой момент можно было отозвать токен.</p>
+<p>Введите название нового токена в поле и нажмите кнопку Добавить токен. Название должно быть уникальным в рамках вашего
+аккаунта. Рекомендуется для разных сервисов использовать свои токены, чтобы в любой момент можно было отозвать токен.</p>
 
 <p>Токен необходимо передавать в заголовке Authorization: &lt;токен&gt;</p>
 
 <p>Адрес для запросов API так же указан на странице выше в тексте: &quot;Используйте базовый адрес, вашего сервера: ...&quot;</p>
 
 <p>Например: https://selsup.ru/&lt;ваш сервер&gt;/api/</p>
+<h1 id='5179979ddc'>Товары</h1><h2 id='4236a64b12'>Поиск товаров</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct?query=123&amp;&amp;count=true&amp;sortBy=ID"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается JSON товаров</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название товара"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XL"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Ozon"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"aliexpressSku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Aliexpress"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sberArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул СберМегаМаркета"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"yandexMarketShopSku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Яндекс.Маркета"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"view"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название цвета или пусто"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"wbArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Яндекс.Маркета"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"manufacturer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Производитель"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"categoryId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название категории"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"brand"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"brandId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название бренда"</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/findProduct">Полный список полей</a></p>
+
+<p>Позволяет найти товары по фильтрам и поисковому запросу, либо просто пройтись по все товарам по порядку, отсортировав по ID и пройдясь по страницам</p>
+<h3 id='88964dca07'>Параметры запроса</h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>int32</td>
+<td>Количество заказов на странице, по умолчанию - 100, максимум 500</td>
+</tr>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер страницы, начиная с 1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>boolean</td>
+<td>Возвратить в ответе общее количество записей</td>
+</tr>
+<tr>
+<td>sortBy</td>
+<td>enum</td>
+<td>Поле по которому отсортировать данные. Возможные значения: &quot;ID&quot; - идентификатор товаров, &quot;NAME&quot; - название товара, &quot;TOTALORDERS&quot; - общее количество заказов;</td>
+</tr>
+<tr>
+<td>ascending</td>
+<td>boolean</td>
+<td>Сортировать по возврастанию данные</td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td>Поисковый запрос по названию, штрих-коду или артикулу товара</td>
+</tr>
+<tr>
+<td>article</td>
+<td>string</td>
+<td>Поиск по артикула товара в SelSup</td>
+</tr>
+<tr>
+<td>needToBuy</td>
+<td>boolean</td>
+<td>Товары, которые необходимо закупить</td>
+</tr>
+<tr>
+<td>inStock</td>
+<td>boolean</td>
+<td>Наличие остатков товаров на маркетплейсе или складе SelSup</td>
+</tr>
+<tr>
+<td>noStock</td>
+<td>boolean</td>
+<td>Отсутствие остатков товаров на маркетплейсе и складе SelSup</td>
+</tr>
+</tbody></table>
+<h3 id='a63c59680a'>Тело ответа</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер запрошенной страницы</td>
+</tr>
+<tr>
+<td>total</td>
+<td>int32</td>
+<td>Общее количество заказов по фильтру. Отдается только если задан count=true</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>array of (Product)</td>
+<td>Товары</td>
+</tr>
+</tbody></table>
+<h3 id='product'>Структура Product</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Идентификатор товара</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Название товара</td>
+</tr>
+<tr>
+<td>ozonArticle</td>
+<td>string</td>
+<td>Артикул на маркетплейсе Ozon</td>
+</tr>
+<tr>
+<td>yandexMarketShopSku</td>
+<td>string</td>
+<td>Артикул на маркетплейсе Яндекс.Маркет</td>
+</tr>
+<tr>
+<td>view</td>
+<td>ProductView</td>
+<td>Объект описывающий Цвет товара</td>
+</tr>
+<tr>
+<td>barcodes</td>
+<td>array of ProductBarcode</td>
+<td>Список штрих-кодов</td>
+</tr>
+</tbody></table>
+<h3 id='productbarcode'>Структура ProductBarcode</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Идентификатор штрих-кода</td>
+</tr>
+<tr>
+<td>barcode</td>
+<td>string</td>
+<td>Штрих-код</td>
+</tr>
+</tbody></table>
+<h3 id='productview'>Структура ProductView</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Идентификатор цвета</td>
+</tr>
+<tr>
+<td>color</td>
+<td>string</td>
+<td>Название цвета товара</td>
+</tr>
+<tr>
+<td>model</td>
+<td>ProductModel</td>
+<td>Объект описывающий Модель товара</td>
+</tr>
+</tbody></table>
+<h3 id='productmodel'>Структура ProductModel</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Идентификатор модели</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Название модели</td>
+</tr>
+<tr>
+<td>brand</td>
+<td>Brand</td>
+<td>Объект описывающий Бренд товара</td>
+</tr>
+<tr>
+<td>category</td>
+<td>Category</td>
+<td>Объект описывающий Категорию товара</td>
+</tr>
+</tbody></table>
+<h2 id='1cfa8f12c1'>Создание модели</h2>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/createModel">Полный список полей</a></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/createModel"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
+  "article": "Уникальный артикул товара",
+  "organizationId": 123,
+  "categoryId": 123,
+  "brandId": 123,
+  "manufacturerId": 123,
+  "views": [
+    {
+      "color": "Название цвета",
+      "sizes": [
+        {
+          "name": "Название товара",
+          "barcodes": [
+            {
+              "barcode": "штрих-код товара"
+            }
+          ]        
+        }
+      ]
+    }
+  ]
+}'</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается JSON заказа, с проставленным значение id у модели, цвета и размера</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"article"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул модели"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Дата создания заказа"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"views"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название цвета"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sizes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Размер"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название товара"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Позволяет создавать карточку товара. Карточка состоит из нескольких цветов, у каждого цвета может быть несколько размеров. Если в вашей категории товаров нет разделения по цветам и размерам - то просто создается карточка с одним цветом и одним размером. Цвет указывать не обязательно, как и значения поля размера. Обязательно указывать только артикул у модели.</p>
+
+<p>Штрих-коды если не указаны, будут автоматически сгенерированы SelSup, либо нужно указывать явно штрих-коды в карточке товара. </p>
+<h3 id='ae15e25eb2'>Тело запроса</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Обязательность</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Нет</td>
+<td>Идентификатор модели, передается только при редактировании</td>
+</tr>
+<tr>
+<td>article</td>
+<td>string</td>
+<td>Да</td>
+<td>Артикул модели</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Нет</td>
+<td>Название модели</td>
+</tr>
+<tr>
+<td>brandId</td>
+<td>int64</td>
+<td>Да</td>
+<td>Идентификатор бренда - если не указано используется бренд по умолчанию у организации</td>
+</tr>
+<tr>
+<td>categoryId</td>
+<td>int64</td>
+<td>Да</td>
+<td>Идентификатор категории из ответа knowledge/findCategory</td>
+</tr>
+<tr>
+<td>views</td>
+<td>array of ProductView</td>
+<td>Да</td>
+<td>Список цветов</td>
+</tr>
+</tbody></table>
+<h3 id='productview-2'>Структура ProductView</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Обязательность</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Нет</td>
+<td>Идентификатор цвета, только при редактировании</td>
+</tr>
+<tr>
+<td>color</td>
+<td>string</td>
+<td>Нет</td>
+<td>Название цвета</td>
+</tr>
+<tr>
+<td>sizes</td>
+<td>array of Product</td>
+<td>Да</td>
+<td>Список размеров</td>
+</tr>
+</tbody></table>
+<h3 id='product-2'>Структура Product</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Обязательность</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Нет</td>
+<td>Идентификатор товара, только при редактировании</td>
+</tr>
+<tr>
+<td>size</td>
+<td>string</td>
+<td>Нет</td>
+<td>Размер товара или параметры</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Да</td>
+<td>Название товара полное</td>
+</tr>
+</tbody></table>
 <h1 id='22ac8458d7'>Заказы</h1><h2 id='752c630b66'>Создание заказа с сайта</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/createOrder">Полный список полей</a></p>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/order/createOrder"</span> <span class="se">\</span>
@@ -415,11 +808,14 @@ curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Вы можете передавать новые заказы в SelSup по API, например с вашего интернет-магазина. В запросе необходимо передавать информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты заказов используйте externalOrderId - номер заказа на сайте интернет-магазина.</p>
+<p>Вы можете передавать новые заказы в SelSup по API, например с вашего интернет-магазина. В запросе необходимо передавать
+информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты
+заказов используйте externalOrderId - номер заказа на сайте интернет-магазина.</p>
 
 <p>Поле organizationId нужно обязательно передавать, если у вас в аккаунте несколько организаций.</p>
 
-<p>Для передачи товаров необходимо предварительно связать товары сайта, с товарами в SelSup, чтобы потом передавать productId - идентификатор товара в SelSup. Сделать это можно разовов, импортировав все товары методом findProduct</p>
+<p>Для передачи товаров необходимо предварительно связать товары сайта, с товарами в SelSup, чтобы потом передавать
+productId - идентификатор товара в SelSup. Сделать это можно разовов, импортировав все товары методом findProduct</p>
 
 <p>В позиции заказа в товаре quantity обязательно нужно передавать, как и цену товара price.</p>
 <h3 id='json'>Тело запроса JSON с ключами</h3>
@@ -505,13 +901,15 @@ curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Вы можете передавать новые заказы в SelSup по API, например с вашего интернет-магазина. В запросе необходимо передавать информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты используется externalOrderId</p>
+<p>Вы можете передавать новые заказы в SelSup по API, например с вашего интернет-магазина. В запросе необходимо передавать
+информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты
+используется externalOrderId</p>
 <h3 id='5c196ee857'>Запрос</h3>
 <p><code>POST https://selsup.ru/&lt;host&gt;/api/order/createOrder</code></p>
 <h3 id='json-2'>Тело запроса JSON с ключами</h3>
 <table><thead>
 <tr>
-<th>Параметр</th>
+<th>Поле</th>
 <th>Тип</th>
 <th>Обязательный</th>
 <th>Описание</th>
@@ -562,7 +960,8 @@ curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"error_empty_warehouse"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>В случае ошибки отдается код ответа 400, а в теле отдается message - с кодом ошибки и messageParams - дополнительные параметры сообщения об ошибке</p>
+<p>В случае ошибки отдается код ответа 400, а в теле отдается message - с кодом ошибки и messageParams - дополнительные
+параметры сообщения об ошибке. Любые коды, отличные от 200 - ошибка запроса</p>
 
 <table><thead>
 <tr>
@@ -591,11 +990,125 @@ curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</
 <td>Не указана цена у позиции заказа products[index].price</td>
 </tr>
 </tbody></table>
-<h2 id='da445bf6b8'>Получение списка заказов</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/order/findOrder?type=FBS&amp;actual=true"</span> <span class="se">\</span>
+<h2 id='da445bf6b8'>Получение списка заказов</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/order/findOrder?type=FBS&amp;actual=true&amp;count=true"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
-<p>Позволяет получить список заказов с фильтрацией и поиском. В данном методе содержимое заказа не отдается сразу, чтобы получить заказы сразу с товарами, используйте другой метод /api/fbs/findOrder.</p>
-<h3 id='88964dca07'>Параметры запроса</h3>
+<blockquote>
+<p>В результате отдается JSON заказов</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FBM"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"boxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEFAULT"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NONE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"writeOffStocks"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"warehouseId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"stockWarehouseId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceNumber"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"externalOrderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"productType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"printName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"realSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"ozonArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"removeFbsStock"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"purchaseCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RUB"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"versionId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"sourceIncomeItemId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"suzId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"barcodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"useInWildberries"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"useInOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"useInYandexMarket"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"useInAliexpress"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"otherExpenses"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wholesalePrice"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"position"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cell"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdUser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"lastUpdateDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"supply"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NONE"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FBM"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"boxType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEFAULT"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdUser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"warehouseId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deliveryDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deliveryMethod"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deliveryMethodName"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"versionId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"orderId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"supplyId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"supplyName"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"gtd"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"serviceWarehouseId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryRegion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logistics"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCommissions"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"saleDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"returnDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-24T14:15:22Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryService"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CDEK"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryServiceIdentification"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryPoint"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryPointCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryLabelPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryLabelRequest"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"edoId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"orderEdoId"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+      </span><span class="nl">"stickerId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"stickerText"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Позволяет получить список заказов с фильтрацией и поиском. В данном методе содержимое заказа не отдается сразу, чтобы
+получить заказы сразу с товарами, используйте другой метод /api/fbs/findOrder. Если нужно получить общее количество -
+необходимо обязательно проставить count=true. Лучше count=true ставить только в первом запросе - далее не передавать</p>
+<h3 id='88964dca07-2'>Параметры запроса</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -603,6 +1116,31 @@ curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</
 <th>Описание</th>
 </tr>
 </thead><tbody>
+<tr>
+<td>limit</td>
+<td>int32</td>
+<td>Количество заказов на странице, по умолчанию - 100, максимум 500</td>
+</tr>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер страницы, начиная с 1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>boolean</td>
+<td>Возвратить в ответе общее количество записей</td>
+</tr>
+<tr>
+<td>sortBy</td>
+<td>enum</td>
+<td>Поле по которому отсортировать данные. Возможные значения: &quot;ID&quot; - идентификатору заказа, лучше всего по номеру сортировать по умолчанию. &quot;CREATEDDATE&quot; - дата создания заказа на маркетплейсе. &quot;CREATED&quot; - дата создания заказа в SelSup. &quot;CREATEDUSER&quot; - пользователь, который создал заказ. &quot;STATUS&quot; - статус заказа. &quot;SERVICE&quot; - маркетплейс заказа. &quot;TYPE&quot; - тип заказа. &quot;BOXTYPE&quot; - тип короба заказа, &quot;NAME&quot; - название заказа, &quot;ORGANIZATIONID&quot; - идентификатор организации, &quot;WAREHOUSE&quot; - склад заказа, &quot;INVOICENUMBER&quot; - номер счета заказа, &quot;EXTERNALORDERID&quot; - внешний номер заказа, &quot;QUEUE&quot; - очередь заказов на сборку, &quot;SUPPLYID&quot; - идентификатору поставки, &quot;CLOSEDATE&quot; &quot;CLOSEUSERID&quot; &quot;USERID&quot; &quot;PRICE&quot; &quot;PRODUCT&quot; &quot;COLLECTORDERTASKID&quot; &quot;DELIVERYDATE&quot; &quot;MARKINGSTATUS&quot;</td>
+</tr>
+<tr>
+<td>ascending</td>
+<td>boolean</td>
+<td>Сортировать по возврастанию данные</td>
+</tr>
 <tr>
 <td>query</td>
 <td>string</td>
@@ -633,13 +1171,54 @@ curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</
 <td>int64</td>
 <td>Идентификатор товара в SelSup, который есть в заказе</td>
 </tr>
+<tr>
+<td>status</td>
+<td>enum</td>
+<td>Фильтр по статусу заказа &quot;CREATED&quot; - Новые заказ, &quot;REVOKING&quot; - Отменяется на маркетплейсе, &quot;REVOKED&quot; - Отменен на маркетплейсе, &quot;ORDER_CREATED&quot; - в основном для FBM - создан на маркетплейсе, &quot;CARDS_CREATED&quot; - в основном для FBM - карточки созданы, &quot;BOX_BARCODES&quot; - в основном для FBM, загрузка ШК коробов, &quot;IMAGES_UPLOADED&quot; - в основном FBM - изображения товаров загружены, &quot;INVOICE_UPLOADED&quot; - в основном для FBM - счет загружен, &quot;READY_TO_SUPPLY&quot; - в основном для FBM - готов к отгрузке, &quot;SUPPLIED&quot; - в основном для FBM - отгружен, &quot;FINISHED&quot; - завершен, &quot;COLLECTED&quot; - собран, &quot;SEND&quot; - отправлен, &quot;DELIVERY&quot; - доставляется, &quot;REFUND&quot; - возврат, &quot;PACKING&quot; - на сборке, &quot;PAYMENT_REQUIRED&quot; - ожидает оплаты, &quot;CANCELED&quot; - отменен покупателем, &quot;CONTROVERSIAL&quot; - спорный, &quot;OVERDUE&quot; - просрочен, &quot;READY_FOR_PICKUP&quot; - готов к выдаче на пункте доставки</td>
+</tr>
+<tr>
+<td>noLabel</td>
+<td>boolean</td>
+<td>Фильтр по заказам без этикетки у заказа для печати</td>
+</tr>
+<tr>
+<td>dbs</td>
+<td>boolean</td>
+<td>Фильтр по заказам DBS</td>
+</tr>
+<tr>
+<td>supplyId</td>
+<td>int64</td>
+<td>Фильтр по номеру поставки SelSup</td>
+</tr>
+</tbody></table>
+<h3 id='a63c59680a-2'>Тело ответа</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер запрошенной страницы</td>
+</tr>
+<tr>
+<td>total</td>
+<td>int32</td>
+<td>Общее количество заказов по фильтру. Отдается только если задан count=true</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>array of (Order)</td>
+<td>Заказы</td>
+</tr>
 </tbody></table>
 
       </div>
       <div class="dark-box">
-          <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-          </div>
       </div>
     </div>
   </body>
