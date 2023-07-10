@@ -2,25 +2,20 @@
 title: Документация API SelSup
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
-
-- shell
+  - shell
 
 toc_footers:
-- <a href='https://selsup.ru/application/integration/pageApi'>Добавить ключ API</a>
-- <a href='https://api.selsup.ru/all.html'>Список всех методов</a>
-- <a href='https://github.com/slatedocs/slate'>Сделано в Slate</a>
+  - <a href='https://selsup.ru/application/integration/pageApi'>Добавить ключ API</a>
+  - <a href='https://api.selsup.ru/all.html'>Список всех методов</a>
+  - <a href='https://github.com/slatedocs/slate'>Сделано в Slate</a>
 
 search: true
 
 code_clipboard: true
 
 meta:
-
-- name: description content: API SelSup — программный интерфейс для работы с сервисом SelSup. Даёт возможность работать
-  со всеми функциями SelSup из вашей системы. Для использования API добавьте новый токен на
-  странице:https://selsup.ru/application/integration/pageApi. Добавленный токен необходимо передавать во всех запросах к
-  API SelSup, в заголовке Authorization. API можно использовать без ограничений на тарифе Выделенный сервер.
-
+  - name: description
+    content: API SelSup — программный интерфейс для работы с сервисом SelSup. Даёт возможность работать со всеми функциями SelSup из вашей системы. Для использования API добавьте новый токен на странице:https://selsup.ru/application/integration/pageApi. Добавленный токен необходимо передавать во всех запросах к API SelSup, в заголовке Authorization. API можно использовать без ограничений на тарифе Выделенный сервер.
 ---
 
 # Введение
@@ -48,12 +43,11 @@ SelSup позволяет создавать карточки на всех ма
 > Как передавать токен авторизации в запросах
 
 ```shell
-# With shell, you can just pass the correct header with each request
 curl "https://selsup.ru/<host>/api/product/findProduct" \
   -H "Authorization: <token>"
 ```
 
-> Проверьте, что у вас указан ваш базовый адрес сервера вместо &lt;host&gt; и &lt;token&gt; заменен на ваш токен API.
+> Проверьте, что у вас указан ваш базовый адрес сервера вместо &lt;host&gt; и &lt;token&gt; заменен на ваш токен API. Они указаны на странице добавления нового токена
 
 Перейдите на страницу настройки API:
 <a href='https://selsup.ru/application/integration/pageApi'>https://selsup.ru/application/integration/pageApi</a>
@@ -121,7 +115,7 @@ curl "https://selsup.ru/<host>/api/product/findProduct?query=123&&count=true&sor
 
 <a href="https://api.selsup.ru/all.html#tag/Tovary/operation/findProduct">Полный список полей</a>
 
-Позволяет найти товары по фильтрам и поисковому запросу, либо просто пройтись по все товарам по порядку, отсортировав по ID и пройдясь по страницам
+Позволяет найти товары по фильтрам и поисковому запросу, либо просто получить все товары по порядку. Для выбора всех товаров лучше передавать sortBy=ID, чтобы новые товары не изменяли порядок сортировки. count=true лучше передавать только в первом запросе. Метод не отдает полную информацию о товаре, только основные поля, которые отображаются на списке товаров. Чтобы получить полную информацию о карточке, необходимо запросить ее по ID модели.
 
 ### Параметры запроса
 
@@ -163,6 +157,9 @@ barcodes | array of ProductBarcode | Список штрих-кодов
 --------- | ------- | -----------
 id | int64 | Идентификатор штрих-кода
 barcode | string | Штрих-код
+useInWildberries | boolean | Используется в Wildberries
+useInOzon | boolean | Используется в Ozon
+useInYandexMarket | boolean | Используется в Яндекс.Маркет
 
 ### Структура ProductView
 
@@ -180,6 +177,58 @@ id | int64 | Идентификатор модели
 name | string | Название модели
 brand | Brand | Объект описывающий Бренд товара
 category | Category | Объект описывающий Категорию товара
+
+## Информация о карточке
+
+<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/getModelById">Полный список полей</a>
+
+```shell
+curl "https://selsup.ru/<host>/api/product/getModelById?id=1" \
+  -H "Authorization: <token>"
+```
+
+> В результате отдается JSON товаров
+
+```json
+{
+  "id": 1,
+  "article": "Уникальный артикул модели",
+  "name": "Название модели",
+  "title": "Название модели для печати и автоматического формирования названий товаров",
+  "description": "Описание",
+  "site": "https://example.ru/",
+  "services": ["WILDBERRIES"],
+  "manufacturer": {
+    "id": 1,
+    "name": "Производитель"
+  },
+  "category": {
+    "categoryId": 1,
+    "name": "Название категории"
+  },
+  "brand": {
+    "brandId": 1,
+    "name": "Название бренда"
+  },
+  "views": [
+    {
+      "id": 1,
+      "color": "Название цвета",
+      "sizes": [
+        {
+          "id": 1,
+          "name": "Название товара",
+          "size": "Размер или параметры",
+          "realSize": "Российский размер",
+          "vendorSize": "Размер производителя"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Позволяет получить всю информацию о карточке товара, включая все заполненные параметры для последующего изменения информации о товаре через метод updateModel. В списке services передаются маркетплейсы или сервисы, в которые необходимо отправить карточку после сохранения.
 
 ## Создание модели
 
