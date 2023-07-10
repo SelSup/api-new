@@ -1,18 +1,13 @@
 ---
-title: API Reference
+title: Документация API SelSup
 
 language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
+  - <a href='https://selsup.ru/application/integration/pageApi'>Добавить ключ API</a>
+  - <a href='https://api.selsup.ru/all.html'>Список всех методов</a>
+  - <a href='https://github.com/slatedocs/slate'>Сделано в Slate</a>
 
 search: true
 
@@ -20,226 +15,202 @@ code_clipboard: true
 
 meta:
   - name: description
-    content: Documentation for the Kittn API
+    content: API SelSup — программный интерфейс для работы с сервисом SelSup. Даёт возможность работать со всеми функциями SelSup из вашей системы. Для использования API добавьте новый токен на странице:https://selsup.ru/application/integration/pageApi. Добавленный токен необходимо передавать во всех запросах к API SelSup, в заголовке Authorization. API можно использовать без ограничений на тарифе Выделенный сервер.
 ---
 
-# Introduction
+# Введение
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+SelSup API — программный интерфейс для работы с сервисом SelSup. Он даёт возможность обмениваться информацией между системой продавца и SelSup.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+Методы API позволяют использовать весь функционал сервиса SelSup для работы с маркетплейсами Ozon, Wildberries, Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авито.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+SelSup позволяет создавать карточки на всех маркетплейсах, заполнять параметры, вести учет остатков товаров, принимать заказы по FBS с маркетплейсов и интернет-магазина, обновлять остатки на позиции, по которым пришел заказ. Вести аналитику продаж и учет финансов.
 
-# Authentication
+С помощью API вы можете подключить любые источники заказов к SelSup и вести быстрый учет остатков с маркетплейсов, сайта и других источников заказов.
 
-> To authorize, use this code:
+Данная документация в разработке, описаны пока не все методы. Вы можете посмотреть полный список методов по ссылке:
+<a href='https://api.selsup.ru/all.html'>https://api.selsup.ru/all.html</a>
 
-```ruby
-require 'kittn'
+По умолчанию GET запросы используются для получения данных, все запросы на изменение данных отправляются методом POST
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+# Авторизация
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+> Как передавать токен авторизации в запросах
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
+curl "https://selsup.ru/<host>/api/product/findProduct" \
+  -H "Authorization: <token>"
 ```
 
-```javascript
-const kittn = require('kittn');
+> Проверьте, что у вас указан ваш базовый адрес сервера вместо &lt;host&gt; и &lt;token&gt; заменен на ваш токен API.
 
-let api = kittn.authorize('meowmeowmeow');
-```
+Перейдите на страницу настройки API:
+<a href='https://selsup.ru/application/integration/pageApi'>https://selsup.ru/application/integration/pageApi</a>
 
-> Make sure to replace `meowmeowmeow` with your API key.
+Введите название нового токена в поле и нажмите кнопку Добавить токен. Название должно быть уникальным в рамках вашего аккаунта. Рекомендуется для разных сервисов использовать свои токены, чтобы в любой момент можно было отозвать токен.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+Токен необходимо передавать в заголовке Authorization: <токен>
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+Адрес для запросов API так же указан на странице выше в тексте: "Используйте базовый адрес, вашего сервера: ..."
 
-`Authorization: meowmeowmeow`
+Например: https://selsup.ru/<ваш сервер>/api/
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
+# Заказы
 
-# Kittens
+## Создание заказа с сайта
 
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
+<a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/createOrder">Полный список полей</a>
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+curl -X POST "https://selsup.ru/<host>/api/order/createOrder" \
+  -H "Authorization: <token>" -data '{
+  "name": "Название заказа если нужно уникальность не проверяется",
+  "type": "RETAIL",
+  "stockWarehouseId": 0,
+  "deliveryDate": "2019-08-24T14:15:22Z",
+  "externalOrderId": "Номер заказа в интернет-магазине или FBS заказа",
+  "trackingNumber": "Необязательный трек номер отправления",
+  "organizationId": 0,
+  "customerId": 0,
+  "customer": {
   }
-]
+  "products": [
+    {
+      "productId": 0,
+      "quantity": 0,
+      "price": 0
+    }
+  ],
+  "comment": "Необязательный комментарий",
+  "deliveryService": "CDEK"
+}'
 ```
 
-This endpoint retrieves all kittens.
+> В результате отдается JSON заказа, с проставленным значение id у заказа и у позиций заказа
 
-### HTTP Request
+```json
+{
+  "id": 1,
+  "createdDate": "Дата создания заказа",
+  "products": [
+    {
+      "id": 1
+    }
+  ]
+}
+```
 
-`GET http://example.com/api/kittens`
+Вы можете передавать новые заказы в SelSup по API, например с вашего интернет-магазина. В запросе необходимо передавать информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты заказов используйте externalOrderId - номер заказа на сайте интернет-магазина.
 
-### Query Parameters
+Поле organizationId нужно обязательно передавать, если у вас в аккаунте несколько организаций.
 
-Parameter | Default | Description
+Для передачи товаров необходимо предварительно связать товары сайта, с товарами в SelSup, чтобы потом передавать productId - идентификатор товара в SelSup. Сделать это можно разовов, импортировав все товары методом findProduct
+
+В позиции заказа в товаре quantity обязательно нужно передавать, как и цену товара price.
+
+### Тело запроса JSON с ключами
+
+Параметр  | Тип | Обязательный | Описание
+--------- | ------- | ------- | -----------
+type | enum | Да | Тип заказа, для заказов с сайта необходимо ставить "RETAIL"
+products | array of OrderProduct | Да | Список товаров заказа
+writeOffStocks | boolean | Нет | Список остатки товаров под заказ со склада SelSup
+stockWarehouseId | int64 | Нет | Идентификатор вашего склада в SelSup, с которого списать остатки товаров. Отдается в методе getApplicationData.
+organizationId | int64 | Нет | Идентификатор организации. Необязательный если в аккаунте 1 организация. Отдается в методе getApplicationData.
+comment | string | Нет | Текстовый комментарий к заказу
+name | string | Нет | Название заказа для быстрого поиска в списке
+
+## Создание отгрузки на маркетплейс
+
+```shell
+curl -X POST "https://selsup.ru/<host>/api/order/createOrder" \
+  -H "Authorization: <token>" -data '{
+  "name": "Название заказа если нужно уникальность не проверяется",
+  "type": "FBM",
+  "warehouseId": 0,
+  "externalOrderId": "Номер заказа на маркетплейсе",
+  "organizationId": 0,
+  "stockWarehouseId": 0,
+  "writeOffStocks": true,
+  "products": [
+    {
+      "productId": 0,
+      "quantity": 0
+    }
+  ],
+  "comment": "Необязательный комментарий"
+}'
+```
+
+> В результате отдается JSON заказа, с проставленным значение id
+
+```json
+{
+  "id": 1,
+  "createdDate": "Дата создания заказа",
+  "products": [
+    {
+      "id": 1
+    }
+  ]
+}
+```
+
+Вы можете передавать новые заказы в SelSup по API, например с вашего интернет-магазина. В запросе необходимо передавать информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты используется externalOrderId
+
+
+### Запрос
+
+`POST https://selsup.ru/<host>/api/order/createOrder`
+
+### Тело запроса JSON с ключами
+
+Параметр  | Тип | Обязательный | Описание
+--------- | ------- | ------- | -----------
+type | enum | Да | Тип заказа, для заказов с сайта необходимо ставить "RETAIL"
+products | array of OrderProduct | Да | Список товаров заказа
+stockWarehouseId | int64 | Нет | Идентификатор вашего склада в SelSup, с которого списать остатки товаров. Отдается в методе getApplicationData.
+organizationId | int64 | Нет | Идентификатор организации. Необязательный если в аккаунте 1 организация. Отдается в методе getApplicationData.
+comment | string | Нет | Текстовый комментарий к заказу
+name | string | Нет | Название заказа для быстрого поиска в списке
+
+### Возможные ошибки
+
+> В результате отдается JSON заказа, с проставленным значение id
+
+```json
+{
+  "message": "error_empty_warehouse"
+}
+```
+
+В случае ошибки отдается код ответа 400, а в теле отдается message - с кодом ошибки и messageParams - дополнительные параметры сообщения об ошибке
+
+Сообщение | Причина
+--------- | -------
+error_empty_warehouse | Не указан параметр warehouseId для заказа на маркетплейс type=FBM
+error_no_organization | Не указано поле organizationId, если в аккаунте несколько организаций
+error_no_marketplace | Не указан service, для type=FBS или type=FBM заказов
+error_no_quantity_for_order_product | Не указано количество товара у позиции заказа products[index].quantity
+error_no_price_for_order_product | Не указана цена у позиции заказа products[index].price
+
+## Получение списка заказов
+
+```shell
+curl "https://selsup.ru/<host>/api/order/findOrder?type=FBS&actual=true" \
+  -H "Authorization: <token>"
+```
+
+Позволяет получить список заказов с фильтрацией и поиском. В данном методе содержимое заказа не отдается сразу, чтобы получить заказы сразу с товарами, используйте другой метод /api/fbs/findOrder.
+
+### Параметры запроса
+
+Параметр | Тип | Описание
 --------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "deleted" : ":("
-}
-```
-
-This endpoint deletes a specific kitten.
-
-### HTTP Request
-
-`DELETE http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
-
+query | string | Поисковый запрос по номеру заказа
+actual | boolean | Отображать только актуальные заказы - не закрытые
+type | enum | Тип заказа строкой: "FBM" - отгрузка на маркетплейс, "FBS" - заказ с маркетплейса со склада продавца, "FBO" - заказ с маркетплейса со склада самого маркетплейса, "RETAIL" - розничный заказ, в том числе с сайта, "WHOLESALE" - оптовый заказ
+organizations | Array of integers <int64> uniq | Оргиназции по которым отдать заказы
+service | enum | Сервис или маркетплейс заказа: "NONE", "WILDBERRIES", "OZON", "YANDEX_MARKET", "FAMILIYA", "NATIONAL_CATALOG", "ALIEXPRESS", "OTHER", "MOY_SKLAD", "SBER_MEGA_MARKET", "CISLINK" "ONE_C", "AVITO", "LEROY_MERLIN", "DETMIR", "KAZAN_EXPRESS"
+productId | int64 | Идентификатор товара в SelSup, который есть в заказе
