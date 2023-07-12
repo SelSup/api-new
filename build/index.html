@@ -330,6 +330,15 @@
                   <li>
                     <a href="#1cfa8f12c1" class="toc-h2 toc-link" data-title="Создание модели">Создание модели</a>
                   </li>
+                  <li>
+                    <a href="#3eb901a267" class="toc-h2 toc-link" data-title="Редактирование модели">Редактирование модели</a>
+                  </li>
+                  <li>
+                    <a href="#682a9e177a" class="toc-h2 toc-link" data-title="Поиск категорий">Поиск категорий</a>
+                  </li>
+                  <li>
+                    <a href="#1fa1c29cb9" class="toc-h2 toc-link" data-title="Поиск бренда">Поиск бренда</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -343,6 +352,17 @@
                   </li>
                   <li>
                     <a href="#da445bf6b8" class="toc-h2 toc-link" data-title="Получение списка заказов">Получение списка заказов</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#3effb46a27" class="toc-h1 toc-link" data-title="Остатки">Остатки</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#selsup" class="toc-h2 toc-link" data-title="Остатки в SelSup">Остатки в SelSup</a>
+                  </li>
+                  <li>
+                    <a href="#e7fa07f1aa" class="toc-h2 toc-link" data-title="Изменение остатков">Изменение остатков</a>
                   </li>
               </ul>
           </li>
@@ -410,6 +430,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название товара"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"skuId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w">
       </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XL"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -546,6 +567,21 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <td>Название товара</td>
 </tr>
 <tr>
+<td>skuId</td>
+<td>int64</td>
+<td>Номер SKU товара для хранения остатков</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>Дата создания товара</td>
+</tr>
+<tr>
+<td>createdUser</td>
+<td>string</td>
+<td>Логин пользователя, который создал товар</td>
+</tr>
+<tr>
 <td>ozonArticle</td>
 <td>string</td>
 <td>Артикул на маркетплейсе Ozon</td>
@@ -554,6 +590,46 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <td>yandexMarketShopSku</td>
 <td>string</td>
 <td>Артикул на маркетплейсе Яндекс.Маркет</td>
+</tr>
+<tr>
+<td>price</td>
+<td>double</td>
+<td>Цена со скидкой</td>
+</tr>
+<tr>
+<td>priceWithoutDiscount</td>
+<td>double</td>
+<td>Цена без скидки</td>
+</tr>
+<tr>
+<td>purchasePrice</td>
+<td>double</td>
+<td>Закупочная цена товара</td>
+</tr>
+<tr>
+<td>wildberriesPrice</td>
+<td>double</td>
+<td>Текущая цена на Wildberries</td>
+</tr>
+<tr>
+<td>ozonPrice</td>
+<td>double</td>
+<td>Текущая цена на Ozon</td>
+</tr>
+<tr>
+<td>sberMegaMarketPrice</td>
+<td>double</td>
+<td>Текущая цена на СберМегаМаркет</td>
+</tr>
+<tr>
+<td>yandexMarketPrice</td>
+<td>double</td>
+<td>Текущая цена на Яндекс.Маркет</td>
+</tr>
+<tr>
+<td>aliexpressPrice</td>
+<td>double</td>
+<td>Текущая цена на Aliexpress</td>
 </tr>
 <tr>
 <td>view</td>
@@ -726,7 +802,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 }'</span>
 </code></pre></div>
 <blockquote>
-<p>В результате отдается JSON заказа, с проставленным значение id у модели, цвета и размера</p>
+<p>В результате отдается JSON модели, с проставленным значение id у модели, цвета и размера</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -772,10 +848,10 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <td>Артикул модели</td>
 </tr>
 <tr>
-<td>name</td>
-<td>string</td>
-<td>Нет</td>
-<td>Название модели</td>
+<td>manufacturerId</td>
+<td>int64</td>
+<td>Да</td>
+<td>Идентификатор производителя - если не указано используется производитель по умолчанию у организации</td>
 </tr>
 <tr>
 <td>brandId</td>
@@ -794,6 +870,48 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <td>array of ProductView</td>
 <td>Да</td>
 <td>Список цветов</td>
+</tr>
+<tr>
+<td>countryName</td>
+<td>string</td>
+<td>Нет</td>
+<td>Название страны производства товара</td>
+</tr>
+<tr>
+<td>materials</td>
+<td>string</td>
+<td>Нет</td>
+<td>Состав</td>
+</tr>
+<tr>
+<td>packWidth</td>
+<td>int64</td>
+<td>Нет</td>
+<td>Ширина упаковки товара в мм</td>
+</tr>
+<tr>
+<td>packHeight</td>
+<td>int64</td>
+<td>Нет</td>
+<td>Ширина упаковки товара в мм</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Нет</td>
+<td>Название модели</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Нет</td>
+<td>Описание товара, используется если не заполнен параметр описания для конкретного маркетплейса</td>
+</tr>
+<tr>
+<td>services</td>
+<td>array of Service</td>
+<td>Нет</td>
+<td>Список маркетплейсов или сервисов, в которые можно отправить товар после сохранения</td>
 </tr>
 </tbody></table>
 <h3 id='productview-2'>Структура ProductView</h3>
@@ -816,6 +934,12 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <td>string</td>
 <td>Нет</td>
 <td>Название цвета</td>
+</tr>
+<tr>
+<td>wbArticle</td>
+<td>string</td>
+<td>Нет</td>
+<td>Артикул карточки Wildberries</td>
 </tr>
 <tr>
 <td>sizes</td>
@@ -850,6 +974,350 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <td>string</td>
 <td>Да</td>
 <td>Название товара полное</td>
+</tr>
+</tbody></table>
+<h2 id='3eb901a267'>Редактирование модели</h2>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/updateModel">Полный список полей</a></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/updateModel"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
+  "article": "Уникальный артикул товара",
+  "organizationId": 123,
+  "categoryId": 123,
+  "brandId": 123,
+  "manufacturerId": 123,
+  "views": [
+    {
+      "color": "Название цвета",
+      "sizes": [
+        {
+          "name": "Название товара",
+          "barcodes": [
+            {
+              "barcode": "штрих-код товара"
+            }
+          ]        
+        }
+      ]
+    }
+  ]
+}'</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается JSON модели, с проставленным значение id у модели, цвета и размера</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"article"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул модели"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Дата создания заказа"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"views"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название цвета"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"sizes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Размер"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название товара"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Позволяет изменить информацию у существующей модели, добавить цвета или размеры. Так же при редактировании модели можно выставлять свойство hasChanges=false, чтобы не изменять некоторые цвета или размеры.</p>
+<h2 id='682a9e177a'>Поиск категорий</h2>
+<p><a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findCategory">Полный список полей</a></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/knowledge/findCategory?query=text&amp;limit=50"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается JSON со списком категорий</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"categoryId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название категории"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parentId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"marked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"categoryClass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SHOES"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesType"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Категория Wildberries"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"ozonCategory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Категория Ozon"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"tnved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ТНВЭД"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"aliexpressCategory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Категория Aliexpress"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"avitoCategory"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Категория Авито"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Позволяет найти категории по запросу или фильтру. Категории SelSup могут связываться с категориями маркетплейсов, могут хранить параметры, которые автоматически проставляются в карточках при создании, если параметр не заполнен в модели. Идентификатор категории необходимо использовать для создания товара.</p>
+<h3 id='88964dca07-2'>Параметры запроса</h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>int32</td>
+<td>Количество категорий на странице, по умолчанию - 100, максимум 500</td>
+</tr>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер страницы, начиная с 1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>boolean</td>
+<td>Возвратить в ответе общее количество записей</td>
+</tr>
+<tr>
+<td>sortBy</td>
+<td>enum</td>
+<td>Поле по которому отсортировать данные</td>
+</tr>
+<tr>
+<td>ascending</td>
+<td>boolean</td>
+<td>Сортировать по возврастанию данные</td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td>Поисковый запрос по названию, штрих-коду или артикулу товара</td>
+</tr>
+</tbody></table>
+<h3 id='a63c59680a-2'>Тело ответа</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер запрошенной страницы</td>
+</tr>
+<tr>
+<td>total</td>
+<td>int32</td>
+<td>Общее количество заказов по фильтру. Отдается только если задан count=true</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>array of (Category)</td>
+<td>Категории</td>
+</tr>
+</tbody></table>
+<h3 id='category'>Структура Category</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>categoryId</td>
+<td>int64</td>
+<td>Идентификатор категории</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Название категории</td>
+</tr>
+<tr>
+<td>marked</td>
+<td>boolean</td>
+<td>Подлежат ли товары этой категории маркировке через Честный знак</td>
+</tr>
+<tr>
+<td>hasSize</td>
+<td>boolean</td>
+<td>Разделяются ли товары данной категории по размерам</td>
+</tr>
+<tr>
+<td>hasColor</td>
+<td>boolean</td>
+<td>Разделяются ли товары данной категории по цветам</td>
+</tr>
+<tr>
+<td>autoName</td>
+<td>boolean</td>
+<td>Автоматически формировать название для товаров из данной категории по шаблону</td>
+</tr>
+<tr>
+<td>namePattern</td>
+<td>string</td>
+<td>Шаблон названия товаров в данной категории</td>
+</tr>
+<tr>
+<td>removeFbsStock</td>
+<td>boolean</td>
+<td>Убрать остатки FBS для товаров из данной категории</td>
+</tr>
+<tr>
+<td>wildberriesType</td>
+<td>WildberriesType</td>
+<td>Информация о категории Wildberries</td>
+</tr>
+<tr>
+<td>categoryClass</td>
+<td>enum</td>
+<td>Класс категории для получения маркировки Честного знака. Одно из значений: &quot;SHOES&quot; &quot;LIGHT&quot; &quot;DRUGS&quot; &quot;CAMERA&quot; &quot;TYRES&quot; &quot;MILK&quot; &quot;WATER&quot; &quot;TOBACCO&quot; &quot;FURS&quot; &quot;BEER&quot; &quot;BICYCLES&quot; &quot;PERFUMES&quot; &quot;ELECTRONIC&quot; &quot;OTHER&quot; &quot;NONE&quot; &quot;FOOD&quot; &quot;WHEELCHAIRS&quot; &quot;OTP&quot; &quot;NCP&quot; &quot;BIO&quot; &quot;ANTISEPTIC&quot; &quot;NABEER&quot; &quot;SOFTDRINKS&quot;</td>
+</tr>
+<tr>
+<td>deleted</td>
+<td>boolean</td>
+<td>Помечен удаленным?</td>
+</tr>
+</tbody></table>
+<h2 id='1fa1c29cb9'>Поиск бренда</h2>
+<p><a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findBrand">Полный список полей</a></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/knowledge/findBrand?query=text&amp;limit=50"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается JSON со списком категорий</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"brandId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Путь к логотипу"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logoSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logoWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logoHeight"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название бренда на Ozon"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Позволяет найти бренды по запросу или фильтру. Идентификатор бренда необходимо использовать для создания товара.</p>
+<h3 id='88964dca07-3'>Параметры запроса</h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>int32</td>
+<td>Количество брендов на странице, по умолчанию - 100, максимум 500</td>
+</tr>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер страницы, начиная с 1</td>
+</tr>
+<tr>
+<td>count</td>
+<td>boolean</td>
+<td>Возвратить в ответе общее количество записей</td>
+</tr>
+<tr>
+<td>sortBy</td>
+<td>enum</td>
+<td>Поле по которому отсортировать данные</td>
+</tr>
+<tr>
+<td>ascending</td>
+<td>boolean</td>
+<td>Сортировать по возврастанию данные</td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td>Поисковый запрос по названию, штрих-коду или артикулу товара</td>
+</tr>
+</tbody></table>
+<h3 id='a63c59680a-3'>Тело ответа</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>int32</td>
+<td>Номер запрошенной страницы</td>
+</tr>
+<tr>
+<td>total</td>
+<td>int32</td>
+<td>Общее количество заказов по фильтру. Отдается только если задан count=true</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>array of (Brand)</td>
+<td>Бренды</td>
+</tr>
+</tbody></table>
+<h3 id='brand'>Структура Brand</h3>
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>brandId</td>
+<td>int64</td>
+<td>Идентификатор бренда</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Название бренда</td>
+</tr>
+<tr>
+<td>ozonId</td>
+<td>int64</td>
+<td>Идентификатор бренда на Ozon</td>
+</tr>
+<tr>
+<td>ozonName</td>
+<td>string</td>
+<td>Название бренда на Ozon</td>
+</tr>
+<tr>
+<td>deleted</td>
+<td>boolean</td>
+<td>Помечен удаленным?</td>
 </tr>
 </tbody></table>
 <h1 id='22ac8458d7'>Заказы</h1><h2 id='752c630b66'>Создание заказа с сайта</h2>
@@ -1190,7 +1658,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <p>Позволяет получить список заказов с фильтрацией и поиском. В данном методе содержимое заказа не отдается сразу, чтобы
 получить заказы сразу с товарами, используйте другой метод /api/fbs/findOrder. Если нужно получить общее количество -
 необходимо обязательно проставить count=true. Лучше count=true ставить только в первом запросе - далее не передавать</p>
-<h3 id='88964dca07-2'>Параметры запроса</h3>
+<h3 id='88964dca07-4'>Параметры запроса</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -1274,7 +1742,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Фильтр по номеру поставки SelSup</td>
 </tr>
 </tbody></table>
-<h3 id='a63c59680a-2'>Тело ответа</h3>
+<h3 id='a63c59680a-4'>Тело ответа</h3>
 <table><thead>
 <tr>
 <th>Поле</th>
@@ -1298,6 +1766,22 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Заказы</td>
 </tr>
 </tbody></table>
+<h1 id='3effb46a27'>Остатки</h1><h2 id='selsup'>Остатки в SelSup</h2>
+<p>Остатки товаров в SelSup привязываются к SKU - единице хранения на складе. Каждому товару присваивается свой номер SKU и в дальнейшем можно указать одинаковый SKU для нескольких разных товаров в SelSup.</p>
+
+<p>Вы можете использовать две схемы хранения остатков в SelSup:
+1)Когда на каждую штуку товара клеится отдельный уникальный код, по которому можно отслеживать всю историю товара и вы всегда можете отделить каждую единицу товара друг от друга. Данный уникальный стикер позволяет вам клеить его в удобное для быстрого поиска место товара, что существенно ускоряет сборку товаров на складе и их идентификацию - особенно если вы работаете с кодами маркировки честного знака
+2)Когда остаток хранится просто к привязки к ячейке по штрих-коду. В этом случае в остатке записывается количество - сколько лежит определенного товара в данной ячейке.</p>
+<h2 id='e7fa07f1aa'>Изменение остатков</h2>
+<p><a href="https://api.selsup.ru/all.html#tag/Hranenie-tovara-na-sklade-(WMS)/operation/changeStock">Полный список полей</a></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/wms/changeStock?skuId=123&amp;stock=5&amp;warehouseId=123"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается 200 код ответа или 400 в случае ошибки</p>
+</blockquote>
+
+<p>Позволяет для SKU изменить остатки товаров на складе. Работает для всех схем хранения, как с уникальными кодами, так и без них</p>
 
       </div>
       <div class="dark-box">

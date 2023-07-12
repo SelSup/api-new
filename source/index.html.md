@@ -81,6 +81,7 @@ curl "https://selsup.ru/<host>/api/product/findProduct?query=123&&count=true&sor
       "id": 1,
       "name": "Название товара",
       "deleted": false,
+      "skuId": 1234,
       "size": "52",
       "vendorSize": "XL",
       "organizationId": 1,
@@ -146,8 +147,19 @@ rows | array of (Product) | Товары
 --------- | ------- | -----------
 id | int64 | Идентификатор товара
 name | string | Название товара
+skuId | int64 | Номер SKU товара для хранения остатков
+createdDate | string | Дата создания товара
+createdUser | string | Логин пользователя, который создал товар
 ozonArticle | string | Артикул на маркетплейсе Ozon
 yandexMarketShopSku | string | Артикул на маркетплейсе Яндекс.Маркет
+price | double | Цена со скидкой
+priceWithoutDiscount | double | Цена без скидки
+purchasePrice | double | Закупочная цена товара
+wildberriesPrice | double | Текущая цена на Wildberries
+ozonPrice | double | Текущая цена на Ozon
+sberMegaMarketPrice | double | Текущая цена на СберМегаМаркет
+yandexMarketPrice | double | Текущая цена на Яндекс.Маркет
+aliexpressPrice | double | Текущая цена на Aliexpress
 view | ProductView | Объект описывающий Цвет товара
 barcodes | array of ProductBarcode | Список штрих-кодов
 
@@ -260,7 +272,7 @@ curl -X POST "https://selsup.ru/<host>/api/product/createModel" \
 }'
 ```
 
-> В результате отдается JSON заказа, с проставленным значение id у модели, цвета и размера
+> В результате отдается JSON модели, с проставленным значение id у модели, цвета и размера
 
 ```json
 {
@@ -293,10 +305,17 @@ curl -X POST "https://selsup.ru/<host>/api/product/createModel" \
 --------- | ------- | ------- | -----------
 id | int64 | Нет | Идентификатор модели, передается только при редактировании
 article | string | Да | Артикул модели
-name | string | Нет | Название модели
+manufacturerId | int64 | Да | Идентификатор производителя - если не указано используется производитель по умолчанию у организации
 brandId | int64 | Да | Идентификатор бренда - если не указано используется бренд по умолчанию у организации
 categoryId | int64 | Да | Идентификатор категории из ответа knowledge/findCategory
 views | array of ProductView | Да | Список цветов
+countryName | string | Нет | Название страны производства товара
+materials | string | Нет | Состав
+packWidth | int64 | Нет | Ширина упаковки товара в мм
+packHeight | int64 | Нет | Ширина упаковки товара в мм
+name | string | Нет | Название модели
+description | string | Нет | Описание товара, используется если не заполнен параметр описания для конкретного маркетплейса
+services | array of Service | Нет | Список маркетплейсов или сервисов, в которые можно отправить товар после сохранения
 
 ### Структура ProductView
 
@@ -304,6 +323,7 @@ views | array of ProductView | Да | Список цветов
 --------- | ------- | ------- | -----------
 id | int64 | Нет | Идентификатор цвета, только при редактировании
 color | string | Нет | Название цвета
+wbArticle | string | Нет | Артикул карточки Wildberries
 sizes | array of Product | Да | Список размеров
 
 ### Структура Product
@@ -313,6 +333,208 @@ sizes | array of Product | Да | Список размеров
 id | int64 | Нет | Идентификатор товара, только при редактировании
 size | string | Нет | Размер товара или параметры
 name | string | Да | Название товара полное
+
+## Редактирование модели
+
+<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/updateModel">Полный список полей</a>
+
+```shell
+curl -X POST "https://selsup.ru/<host>/api/product/updateModel" \
+  -H "Authorization: <token>" -data '{
+  "article": "Уникальный артикул товара",
+  "organizationId": 123,
+  "categoryId": 123,
+  "brandId": 123,
+  "manufacturerId": 123,
+  "views": [
+    {
+      "color": "Название цвета",
+      "sizes": [
+        {
+          "name": "Название товара",
+          "barcodes": [
+            {
+              "barcode": "штрих-код товара"
+            }
+          ]        
+        }
+      ]
+    }
+  ]
+}'
+```
+
+> В результате отдается JSON модели, с проставленным значение id у модели, цвета и размера
+
+```json
+{
+  "id": 1,
+  "article": "Артикул модели",
+  "createdDate": "Дата создания заказа",
+  "views": [
+    {
+      "id": 1,
+      "color": "Название цвета",
+      "sizes": [
+        {
+          "id": 1,
+          "size": "Размер",
+          "name": "Название товара"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Позволяет изменить информацию у существующей модели, добавить цвета или размеры. Так же при редактировании модели можно выставлять свойство hasChanges=false, чтобы не изменять некоторые цвета или размеры.
+
+## Поиск категорий
+
+<a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findCategory">Полный список полей</a>
+
+```shell
+curl "https://selsup.ru/<host>/api/knowledge/findCategory?query=text&limit=50" \
+  -H "Authorization: <token>"
+```
+
+> В результате отдается JSON со списком категорий
+
+```json
+{
+  "rows": [
+    {
+      "categoryId": 0,
+      "name": "Название категории",
+      "deleted": true,
+      "parentId": 0,
+      "marked": true,
+      "categoryClass": "SHOES",
+      "wildberriesType": {
+        "id": 0,
+        "name": "Категория Wildberries"
+      },
+      "ozonCategory": {
+        "id": 0,
+        "name": "Категория Ozon"
+      },
+      "tnved": {
+        "id": 0,
+        "name": "ТНВЭД"
+      },
+      "aliexpressCategory": {
+        "id": 0,
+        "name": "Категория Aliexpress"
+      },
+      "avitoCategory": {
+        "id": 0,
+        "name": "Категория Авито"
+      }
+    }
+  ],
+  "total": 0,
+  "page": 0
+}
+```
+
+Позволяет найти категории по запросу или фильтру. Категории SelSup могут связываться с категориями маркетплейсов, могут хранить параметры, которые автоматически проставляются в карточках при создании, если параметр не заполнен в модели. Идентификатор категории необходимо использовать для создания товара.
+
+### Параметры запроса
+
+Параметр | Тип | Описание
+--------- | ------- | -----------
+limit | int32 | Количество категорий на странице, по умолчанию - 100, максимум 500
+page | int32 | Номер страницы, начиная с 1
+count | boolean | Возвратить в ответе общее количество записей
+sortBy | enum | Поле по которому отсортировать данные
+ascending | boolean | Сортировать по возврастанию данные
+query | string | Поисковый запрос по названию, штрих-коду или артикулу товара
+
+### Тело ответа
+
+Поле | Тип | Описание
+--------- | ------- | -----------
+page | int32 | Номер запрошенной страницы
+total | int32 | Общее количество заказов по фильтру. Отдается только если задан count=true
+rows | array of (Category) | Категории
+
+### Структура Category
+
+Поле | Тип | Описание
+--------- | ------- | -----------
+categoryId | int64 | Идентификатор категории
+name | string | Название категории
+marked | boolean | Подлежат ли товары этой категории маркировке через Честный знак
+hasSize | boolean | Разделяются ли товары данной категории по размерам
+hasColor | boolean | Разделяются ли товары данной категории по цветам
+autoName | boolean | Автоматически формировать название для товаров из данной категории по шаблону
+namePattern | string | Шаблон названия товаров в данной категории
+removeFbsStock | boolean | Убрать остатки FBS для товаров из данной категории
+wildberriesType | WildberriesType | Информация о категории Wildberries
+categoryClass | enum | Класс категории для получения маркировки Честного знака. Одно из значений: "SHOES" "LIGHT" "DRUGS" "CAMERA" "TYRES" "MILK" "WATER" "TOBACCO" "FURS" "BEER" "BICYCLES" "PERFUMES" "ELECTRONIC" "OTHER" "NONE" "FOOD" "WHEELCHAIRS" "OTP" "NCP" "BIO" "ANTISEPTIC" "NABEER" "SOFTDRINKS"
+deleted | boolean | Помечен удаленным?
+
+## Поиск бренда
+
+<a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findBrand">Полный список полей</a>
+
+```shell
+curl "https://selsup.ru/<host>/api/knowledge/findBrand?query=text&limit=50" \
+  -H "Authorization: <token>"
+```
+
+> В результате отдается JSON со списком категорий
+
+```json
+{
+  "rows": [
+    {
+      "brandId": 0,
+      "name": "string",
+      "logo": "Путь к логотипу",
+      "logoSize": 0,
+      "logoWidth": 0,
+      "logoHeight": 0,
+      "deleted": true,
+      "ozonName": "Название бренда на Ozon",
+      "ozonId": 0
+    }
+  ],
+  "total": 0,
+  "page": 0
+}
+```
+
+Позволяет найти бренды по запросу или фильтру. Идентификатор бренда необходимо использовать для создания товара.
+
+### Параметры запроса
+
+Параметр | Тип | Описание
+--------- | ------- | -----------
+limit | int32 | Количество брендов на странице, по умолчанию - 100, максимум 500
+page | int32 | Номер страницы, начиная с 1
+count | boolean | Возвратить в ответе общее количество записей
+sortBy | enum | Поле по которому отсортировать данные
+ascending | boolean | Сортировать по возврастанию данные
+query | string | Поисковый запрос по названию, штрих-коду или артикулу товара
+
+### Тело ответа
+
+Поле | Тип | Описание
+--------- | ------- | -----------
+page | int32 | Номер запрошенной страницы
+total | int32 | Общее количество заказов по фильтру. Отдается только если задан count=true
+rows | array of (Brand) | Бренды
+
+### Структура Brand
+
+Поле | Тип | Описание
+--------- | ------- | -----------
+brandId | int64 | Идентификатор бренда
+name | string | Название бренда
+ozonId | int64 | Идентификатор бренда на Ozon
+ozonName | string | Название бренда на Ozon
+deleted | boolean | Помечен удаленным?
 
 # Заказы
 
@@ -609,3 +831,26 @@ supplyId | int64 | Фильтр по номеру поставки SelSup
 page | int32 | Номер запрошенной страницы
 total | int32 | Общее количество заказов по фильтру. Отдается только если задан count=true
 rows | array of (Order) | Заказы
+
+# Остатки
+
+## Остатки в SelSup
+
+Остатки товаров в SelSup привязываются к SKU - единице хранения на складе. Каждому товару присваивается свой номер SKU и в дальнейшем можно указать одинаковый SKU для нескольких разных товаров в SelSup.
+
+Вы можете использовать две схемы хранения остатков в SelSup:
+1)Когда на каждую штуку товара клеится отдельный уникальный код, по которому можно отслеживать всю историю товара и вы всегда можете отделить каждую единицу товара друг от друга. Данный уникальный стикер позволяет вам клеить его в удобное для быстрого поиска место товара, что существенно ускоряет сборку товаров на складе и их идентификацию - особенно если вы работаете с кодами маркировки честного знака
+2)Когда остаток хранится просто к привязки к ячейке по штрих-коду. В этом случае в остатке записывается количество - сколько лежит определенного товара в данной ячейке.
+
+## Изменение остатков
+
+<a href="https://api.selsup.ru/all.html#tag/Hranenie-tovara-na-sklade-(WMS)/operation/changeStock">Полный список полей</a>
+
+```shell
+curl -X POST "https://selsup.ru/<host>/api/wms/changeStock?skuId=123&stock=5&warehouseId=123" \
+  -H "Authorization: <token>"
+```
+
+> В результате отдается 200 код ответа или 400 в случае ошибки
+
+Позволяет для SKU изменить остатки товаров на складе. Работает для всех схем хранения, как с уникальными кодами, так и без них
