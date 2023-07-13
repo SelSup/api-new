@@ -7,7 +7,7 @@ language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of
 toc_footers:
   - <a href='https://selsup.ru/application/integration/pageApi'>Добавить ключ API</a>
   - <a href='https://api.selsup.ru/all.html'>Список всех методов</a>
-  - <a href='https://github.com/slatedocs/slate'>Сделано в Slate</a>
+  - <a href='https://t.me/+fPI_QY47oG0xOGUy'>Чат разработчиков API</a>
 
 search: true
 
