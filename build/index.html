@@ -340,6 +340,12 @@
                     <a href="#3eb901a267" class="toc-h2 toc-link" data-title="Редактирование модели">Редактирование модели</a>
                   </li>
                   <li>
+                    <a href="#e568e43dc1" class="toc-h2 toc-link" data-title="Работа с параметрами карточки">Работа с параметрами карточки</a>
+                  </li>
+                  <li>
+                    <a href="#30ac922a01" class="toc-h2 toc-link" data-title="Поиск значений параметра">Поиск значений параметра</a>
+                  </li>
+                  <li>
                     <a href="#682a9e177a" class="toc-h2 toc-link" data-title="Поиск категорий">Поиск категорий</a>
                   </li>
                   <li>
@@ -798,8 +804,10 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </tr>
 </tbody></table>
 <h2 id='fc6fab26b0'>Информация о карточке</h2>
+<p>Передавайте параметр params=true, чтобы получить в ответе список значений values.</p>
+
 <p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/getModelById">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/getModelById?id=1"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/getModelById?id=1&amp;params=true"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -1018,18 +1026,59 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
   "organizationId": 123,
   "categoryId": 123,
   "brandId": 123,
+  "materials": "content",
   "manufacturerId": 123,
+  "packWidth": 10,
+  "packHeight": 10,
+  "packDepth": 10,
+  "packWeight": 1,
+  "values": [
+    {
+      "paramId": 1,
+      "stringValue": "text"
+    },
+    {
+      "paramId": 2,
+      "doubleValue": 3.0
+    }  
+  ],
   "views": [
     {
       "color": "Название цвета",
+      "mainImageUrl": "http://image.com/1.png",
+      "imageUrls": "http://image.com/2.png;http://image.com/3.png",
+      "wbArticle": "Артикул на ВБ",
+      "values": [
+        {
+          "paramId": 1,
+          "stringValue": "text"
+        },
+        {
+          "paramId": 2,
+          "doubleValue": 3.0
+        }  
+      ],
       "sizes": [
         {
           "name": "Название товара",
+          "productType": "PRODUCT",
+          "size": "Размер на сайте",
+          "realSize": "Российский размер, лучше чтобы совпадал с size",
+          "vendorSize": "Размер производителя",
           "barcodes": [
             {
               "barcode": "штрих-код товара"
             }
-          ]        
+          ],
+          "ozonArticle": "ozon",
+          "sberArticle": "sberArticle",
+          "leroyMerlinArticle": "leroyMerlinArticle",
+          "yandexMarketShopSku": "SKU Яндекса",
+          "externalArticle": "externalArticle",
+          "packWidth": 10,
+          "packHeight": 10,
+          "packDepth": 10,
+          "packWeight": 1      
         }
       ]
     }
@@ -1266,6 +1315,350 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Позволяет изменить информацию у существующей модели, добавить цвета или размеры. Так же при редактировании модели можно выставлять свойство hasChanges=false, чтобы не изменять некоторые цвета или размеры.</p>
+<h2 id='e568e43dc1'>Работа с параметрами карточки</h2>
+<p>У каждой структуры ProductModel, ProductView и Product, есть список значений параметров. У каждого параметра есть
+идентификатор, который зачастую уникален в рамках всех категорий маркетплейса. Один параметр может повторяться в
+разных категориях. Мы всегда пытаемся максимально сохранять идентификатор параметра при любых изменения на
+маркетплейсе.</p>
+
+<p>Значения можно определять на разных уровнях, при этом Product имеет самый высший приоритет, потом идут по порядку
+значения со следующим приоритетом: ProductView, ProductModel, Category</p>
+
+<p>В некоторых случаях, на маркетплейс не могут быть переданы значения, записанные у размера, например на Wildberries,
+тк карточка Wildberries соответствует ProductView. Уровень параметра, указанный в Param.level служит лишь
+для определения уровня по умолчанию, на котором должно быть определено значение параметра.</p>
+
+<p>Если у параметра проставлено multiValueAllowed, то может быть несколько ParamValue с одинаковым paramId для
+передачи параметров, у которых может быть несколько значений</p>
+
+<p>В зависимости от типа параметра Param.valueType, должны проставляться соответствующие поля в значении ParamValue.</p>
+
+<table><thead>
+<tr>
+<th>Тип</th>
+<th>Параметр для заполнения</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ENUM</td>
+<td>option</td>
+<td>Должна быть указана структура Option: {\&quot;id\&quot;:123,\&quot;name\&quot;:&quot;Название&quot;}</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>stringValue</td>
+<td>Строковое значение</td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>booleanValue</td>
+<td>Булевское значение параметра</td>
+</tr>
+<tr>
+<td>LONG</td>
+<td>longValue</td>
+<td>int64 значение</td>
+</tr>
+<tr>
+<td>DATE</td>
+<td>dateValue</td>
+<td>Дата в формате ISO-8601</td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://params.selsup.ru/knowledge/getParams?ozonCategoryId=91025609&amp;wildberriesTypeId=105"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается JSON со списком параметров в категории Ozon 91025609 и WB 105</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6920</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Бренд в одежде и обуви"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"published"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"serviceParam"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BRAND"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"useCategoryOption"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ENUM"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"displayType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUGGEST"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"multiValueAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Укажите наименование бренда, под которым произведен товар. Если товар не имеет бренда, используйте значение </span><span class="se">\"</span><span class="s2">Нет бренда</span><span class="se">\"</span><span class="s2">"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"groupName"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ozonId"</span><span class="p">:</span><span class="w"> </span><span class="mi">31</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"mergeCategoryValues"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ozonDictionaryId"</span><span class="p">:</span><span class="w"> </span><span class="mi">28732849</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MODEL"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6473</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Высота упаковки"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"published"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"visible"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"serviceParam"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PACK_HEIGHT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"useCategoryOption"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"valueType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DOUBLE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"displayType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TEXT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"required"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"multiValueAllowed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"maxValuesCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"wildberriesId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"mergeCategoryValues"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"measure"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Высота упаковки"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"nationalCatalogId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesTypeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">103</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"aliexpressCategoryId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"units"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"см"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"unitsMap"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"см"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"см"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"VIEW"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>Получить список параметров можно через специальный компонент, который ежедневно обновляет список параметров
+для каждого маркетплейса. Параметры динамические - они могут постоянно добавляться и удаляться из категории,
+когда их правит маркетплейс - тк это параметры маркетплейсов:</p>
+
+<p>https://params.selsup.ru/knowledge/getParams?ozonCategoryId=91025609&amp;wildberriesTypeId=105&amp;avitoCategoryId=103</p>
+
+<p>Можно передать следующие параметры запроса, соответствующие связям категории SelSup с категориями маркетплейсов:</p>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ozonCategoryId</td>
+<td>int64</td>
+<td>Идентификатор категории на Ozon</td>
+</tr>
+<tr>
+<td>wildberriesTypeId</td>
+<td>int64</td>
+<td>Идентификатор категории Wildberries</td>
+</tr>
+<tr>
+<td>nationalCatalogId</td>
+<td>int64</td>
+<td>ТНВЭД национального каталога</td>
+</tr>
+<tr>
+<td>aliexpressCategoryId</td>
+<td>int64</td>
+<td>Категория Aliexpress</td>
+</tr>
+<tr>
+<td>ymCategoryId</td>
+<td>int64</td>
+<td>Категория Яндекс.Маркета</td>
+</tr>
+<tr>
+<td>avitoCategoryId</td>
+<td>int64</td>
+<td>Категория Авито</td>
+</tr>
+</tbody></table>
+<h3 id='932b476fbd'>Поля в ответе</h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>int64</td>
+<td>Идентификатор параметра. Используется для сохранения значений ParamValue.paramId</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>Название параметра, для avito указывается название тэга</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>Название параметра для пользователя, если не указано использовать name</td>
+</tr>
+<tr>
+<td>published</td>
+<td>boolean</td>
+<td>Опубликованность параметра в категории маркетплейса</td>
+</tr>
+<tr>
+<td>visible</td>
+<td>boolean</td>
+<td>Признак того, что параметр скрыт на карточке, тк значение заполняется автоматически</td>
+</tr>
+<tr>
+<td>serviceParam</td>
+<td>enum</td>
+<td>Связь со служебным параметром SelSup из которого берется значение</td>
+</tr>
+<tr>
+<td>useCategoryOption</td>
+<td>boolean</td>
+<td>Передавать в запросе к options.selsup.ru</td>
+</tr>
+<tr>
+<td>valueType</td>
+<td>enum</td>
+<td>Тип значения, которое нужно проставлять в ParamValue</td>
+</tr>
+<tr>
+<td>displayType</td>
+<td>enum</td>
+<td>Вид компонента для отображения параметра в интерфейсе</td>
+</tr>
+<tr>
+<td>required</td>
+<td>boolean</td>
+<td>Признак обязательности параметра</td>
+</tr>
+<tr>
+<td>multiValueAllowed</td>
+<td>boolean</td>
+<td>Признак обязательности параметра</td>
+</tr>
+<tr>
+<td>maxValuesCount</td>
+<td>int32</td>
+<td>Максимальное количество значений для многозначного параметра</td>
+</tr>
+<tr>
+<td>maxLength</td>
+<td>int32</td>
+<td>Максимальная длина текстового параметра</td>
+</tr>
+<tr>
+<td>maxValue</td>
+<td>double</td>
+<td>Максимальное значение параметра</td>
+</tr>
+<tr>
+<td>minValue</td>
+<td>double</td>
+<td>Минимальное значение параметра</td>
+</tr>
+<tr>
+<td>wildberriesId</td>
+<td>int64</td>
+<td>Признак, что параметр Wildberries</td>
+</tr>
+<tr>
+<td>service</td>
+<td>enum</td>
+<td>Сервис, к которому относится параметр</td>
+</tr>
+<tr>
+<td>level</td>
+<td>enum</td>
+<td>Уровень по умолчанию, на котором должен быть определен параметр</td>
+</tr>
+<tr>
+<td>measure</td>
+<td>Measure</td>
+<td>Мера измерения параметра</td>
+</tr>
+</tbody></table>
+
+<p>В некоторых случаях значения параметра, в случае valueType: &quot;ENUM&quot;, displayType: &quot;SELECT&quot;
+могут отдаваться сразу в Param, но большинство значений параметра для displayType: &quot;SUGGEST&quot;,
+нужно получать из ответа другого компонента, который отдает значения параметров</p>
+<h2 id='30ac922a01'>Поиск значений параметра</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://options.selsup.ru/option/fetchOption?aliexpressCategoryId=201236503&amp;paramId=60019&amp;useCategoryOption=true&amp;query=123&amp;limit=10"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
+</code></pre></div>
+<blockquote>
+<p>В результате отдается JSON со списком значений параметра 60019 для категории Aliexpress 201236503</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"гусиный пух"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ozonId"</span><span class="p">:</span><span class="w"> </span><span class="mi">61811</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"овчина"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ozonId"</span><span class="p">:</span><span class="w"> </span><span class="mi">61978</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre></div>
+<p>Список значений может отдаваться для параметров с Param.valueType: &quot;ENUM&quot; или &quot;TEXT&quot;
+В этом случае у них обязательно будет проставлен Param.displayType: &quot;SUGGEST&quot;, который говорит о том,
+что список значений нужно получать из ответа метода:</p>
+
+<p>https://options.selsup.ru/option/fetchOption?aliexpressCategoryId=201236503&amp;paramId=60019&amp;useCategoryOption=true&amp;query=123&amp;limit=10</p>
+
+<p>Полученные значения необходимо подставлять в качестве option у ParamValue в карточке товара. У значения всегда есть name,
+а вот идентификатор может вообще отсутствовать или может соответствовать идентификаторам значений на
+маркетплейсах</p>
+<h3 id='88964dca07-2'>Параметры запроса</h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>limit</td>
+<td>int32</td>
+<td>Количество значений, которое отдать</td>
+</tr>
+<tr>
+<td>query</td>
+<td>string</td>
+<td>Поисковый запрос</td>
+</tr>
+<tr>
+<td>useCategoryOption</td>
+<td>boolean</td>
+<td>Необходимо передавать значение соответствующего поля у Param.useCategoryOption</td>
+</tr>
+<tr>
+<td>ozonCategoryId</td>
+<td>int64</td>
+<td>Идентификатор категории на Ozon</td>
+</tr>
+<tr>
+<td>wildberriesTypeId</td>
+<td>int64</td>
+<td>Идентификатор категории Wildberries</td>
+</tr>
+<tr>
+<td>nationalCatalogId</td>
+<td>int64</td>
+<td>ТНВЭД национального каталога</td>
+</tr>
+<tr>
+<td>aliexpressCategoryId</td>
+<td>int64</td>
+<td>Категория Aliexpress</td>
+</tr>
+<tr>
+<td>ymCategoryId</td>
+<td>int64</td>
+<td>Категория Яндекс.Маркета</td>
+</tr>
+<tr>
+<td>avitoCategoryId</td>
+<td>int64</td>
+<td>Категория Авито</td>
+</tr>
+</tbody></table>
 <h2 id='682a9e177a'>Поиск категорий</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findCategory">Полный список полей</a></p>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/knowledge/findCategory?query=text&amp;limit=50"</span> <span class="se">\</span>
@@ -1310,7 +1703,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Позволяет найти категории по запросу или фильтру. Категории SelSup могут связываться с категориями маркетплейсов, могут хранить параметры, которые автоматически проставляются в карточках при создании, если параметр не заполнен в модели. Идентификатор категории необходимо использовать для создания товара.</p>
-<h3 id='88964dca07-2'>Параметры запроса</h3>
+<h3 id='88964dca07-3'>Параметры запроса</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -1464,7 +1857,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Позволяет найти бренды по запросу или фильтру. Идентификатор бренда необходимо использовать для создания товара.</p>
-<h3 id='88964dca07-3'>Параметры запроса</h3>
+<h3 id='88964dca07-4'>Параметры запроса</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -1939,7 +2332,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <p>Позволяет получить список заказов с фильтрацией и поиском. В данном методе содержимое заказа не отдается сразу, чтобы
 получить заказы сразу с товарами, используйте другой метод /api/fbs/findOrder. Если нужно получить общее количество -
 необходимо обязательно проставить count=true. Лучше count=true ставить только в первом запросе - далее не передавать</p>
-<h3 id='88964dca07-4'>Параметры запроса</h3>
+<h3 id='88964dca07-5'>Параметры запроса</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>

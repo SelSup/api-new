@@ -225,10 +225,12 @@ manufacturer | Manufacturer | Объект описывающий Произво
 
 ## Информация о карточке
 
+Передавайте параметр params=true, чтобы получить в ответе список значений values.
+
 <a href="https://api.selsup.ru/all.html#tag/Tovary/operation/getModelById">Полный список полей</a>
 
 ```shell
-curl "https://selsup.ru/<host>/api/product/getModelById?id=1" \
+curl "https://selsup.ru/<host>/api/product/getModelById?id=1&params=true" \
   -H "Authorization: <token>"
 ```
 
@@ -329,18 +331,59 @@ curl -X POST "https://selsup.ru/<host>/api/product/createModel" \
   "organizationId": 123,
   "categoryId": 123,
   "brandId": 123,
+  "materials": "content",
   "manufacturerId": 123,
+  "packWidth": 10,
+  "packHeight": 10,
+  "packDepth": 10,
+  "packWeight": 1,
+  "values": [
+    {
+      "paramId": 1,
+      "stringValue": "text"
+    },
+    {
+      "paramId": 2,
+      "doubleValue": 3.0
+    }  
+  ],
   "views": [
     {
       "color": "Название цвета",
+      "mainImageUrl": "http://image.com/1.png",
+      "imageUrls": "http://image.com/2.png;http://image.com/3.png",
+      "wbArticle": "Артикул на ВБ",
+      "values": [
+        {
+          "paramId": 1,
+          "stringValue": "text"
+        },
+        {
+          "paramId": 2,
+          "doubleValue": 3.0
+        }  
+      ],
       "sizes": [
         {
           "name": "Название товара",
+          "productType": "PRODUCT",
+          "size": "Размер на сайте",
+          "realSize": "Российский размер, лучше чтобы совпадал с size",
+          "vendorSize": "Размер производителя",
           "barcodes": [
             {
               "barcode": "штрих-код товара"
             }
-          ]        
+          ],
+          "ozonArticle": "ozon",
+          "sberArticle": "sberArticle",
+          "leroyMerlinArticle": "leroyMerlinArticle",
+          "yandexMarketShopSku": "SKU Яндекса",
+          "externalArticle": "externalArticle",
+          "packWidth": 10,
+          "packHeight": 10,
+          "packDepth": 10,
+          "packWeight": 1      
         }
       ]
     }
@@ -465,6 +508,186 @@ curl -X POST "https://selsup.ru/<host>/api/product/updateModel" \
 ```
 
 Позволяет изменить информацию у существующей модели, добавить цвета или размеры. Так же при редактировании модели можно выставлять свойство hasChanges=false, чтобы не изменять некоторые цвета или размеры.
+
+## Работа с параметрами карточки
+
+У каждой структуры ProductModel, ProductView и Product, есть список значений параметров. У каждого параметра есть
+идентификатор, который зачастую уникален в рамках всех категорий маркетплейса. Один параметр может повторяться в
+разных категориях. Мы всегда пытаемся максимально сохранять идентификатор параметра при любых изменения на
+маркетплейсе.
+
+Значения можно определять на разных уровнях, при этом Product имеет самый высший приоритет, потом идут по порядку
+значения со следующим приоритетом: ProductView, ProductModel, Category
+
+В некоторых случаях, на маркетплейс не могут быть переданы значения, записанные у размера, например на Wildberries,
+тк карточка Wildberries соответствует ProductView. Уровень параметра, указанный в Param.level служит лишь
+для определения уровня по умолчанию, на котором должно быть определено значение параметра.
+
+Если у параметра проставлено multiValueAllowed, то может быть несколько ParamValue с одинаковым paramId для
+передачи параметров, у которых может быть несколько значений
+
+В зависимости от типа параметра Param.valueType, должны проставляться соответствующие поля в значении ParamValue.
+
+Тип | Параметр для заполнения | Описание
+--------- | ------- | -----------
+ENUM | option | Должна быть указана структура Option: {\"id\":123,\"name\":"Название"}
+TEXT | stringValue | Строковое значение
+BOOLEAN | booleanValue | Булевское значение параметра
+LONG | longValue | int64 значение
+DATE | dateValue | Дата в формате ISO-8601
+
+```shell
+curl "https://params.selsup.ru/knowledge/getParams?ozonCategoryId=91025609&wildberriesTypeId=105" \
+  -H "Authorization: <token>"
+```
+
+> В результате отдается JSON со списком параметров в категории Ozon 91025609 и WB 105
+
+```json
+[
+  {
+    "id": 6920,
+    "name": "Бренд в одежде и обуви",
+    "published": true,
+    "visible": false,
+    "serviceParam": "BRAND",
+    "useCategoryOption": false,
+    "valueType": "ENUM",
+    "displayType": "SUGGEST",
+    "required": true,
+    "multiValueAllowed": false,
+    "description": "Укажите наименование бренда, под которым произведен товар. Если товар не имеет бренда, используйте значение \"Нет бренда\"",
+    "groupName": "",
+    "ozonId": 31,
+    "mergeCategoryValues": true,
+    "ozonDictionaryId": 28732849,
+    "level": "MODEL"
+  },
+  {
+    "id": 6473,
+    "name": "Высота упаковки",
+    "published": true,
+    "visible": false,
+    "serviceParam": "PACK_HEIGHT",
+    "useCategoryOption": false,
+    "valueType": "DOUBLE",
+    "displayType": "TEXT",
+    "required": false,
+    "multiValueAllowed": false,
+    "maxValuesCount": 1,
+    "wildberriesId": 1,
+    "mergeCategoryValues": false,
+    "measure": {
+      "name": "Высота упаковки",
+      "nationalCatalogId": null,
+      "wildberriesTypeId": 103,
+      "aliexpressCategoryId": null,
+      "units": [
+        {
+          "name": "см"
+        }
+      ],
+      "unitsMap": {
+        "см": {
+          "name": "см"
+        }
+      }
+    },
+    "level": "VIEW"
+  }
+]
+```
+
+Получить список параметров можно через специальный компонент, который ежедневно обновляет список параметров
+для каждого маркетплейса. Параметры динамические - они могут постоянно добавляться и удаляться из категории,
+когда их правит маркетплейс - тк это параметры маркетплейсов:
+
+https://params.selsup.ru/knowledge/getParams?ozonCategoryId=91025609&wildberriesTypeId=105&avitoCategoryId=103
+
+Можно передать следующие параметры запроса, соответствующие связям категории SelSup с категориями маркетплейсов:
+
+Поле | Тип | Описание
+--------- | ------- | -----------
+ozonCategoryId | int64 | Идентификатор категории на Ozon
+wildberriesTypeId | int64 | Идентификатор категории Wildberries
+nationalCatalogId | int64 | ТНВЭД национального каталога
+aliexpressCategoryId | int64 | Категория Aliexpress
+ymCategoryId | int64 | Категория Яндекс.Маркета
+avitoCategoryId | int64 | Категория Авито
+
+### Поля в ответе
+
+Параметр | Тип | Описание
+--------- | ------- | -----------
+id | int64 | Идентификатор параметра. Используется для сохранения значений ParamValue.paramId
+name | string | Название параметра, для avito указывается название тэга
+title | string | Название параметра для пользователя, если не указано использовать name
+published | boolean | Опубликованность параметра в категории маркетплейса
+visible | boolean | Признак того, что параметр скрыт на карточке, тк значение заполняется автоматически
+serviceParam | enum | Связь со служебным параметром SelSup из которого берется значение
+useCategoryOption | boolean | Передавать в запросе к options.selsup.ru
+valueType | enum | Тип значения, которое нужно проставлять в ParamValue
+displayType | enum | Вид компонента для отображения параметра в интерфейсе
+required | boolean | Признак обязательности параметра
+multiValueAllowed | boolean | Признак обязательности параметра
+maxValuesCount | int32 | Максимальное количество значений для многозначного параметра
+maxLength | int32 | Максимальная длина текстового параметра
+maxValue | double | Максимальное значение параметра
+minValue | double | Минимальное значение параметра
+wildberriesId | int64 | Признак, что параметр Wildberries
+service | enum | Сервис, к которому относится параметр
+level | enum | Уровень по умолчанию, на котором должен быть определен параметр
+measure | Measure | Мера измерения параметра
+
+В некоторых случаях значения параметра, в случае valueType: "ENUM", displayType: "SELECT"
+могут отдаваться сразу в Param, но большинство значений параметра для displayType: "SUGGEST",
+нужно получать из ответа другого компонента, который отдает значения параметров
+
+## Поиск значений параметра
+
+```shell
+curl "https://options.selsup.ru/option/fetchOption?aliexpressCategoryId=201236503&paramId=60019&useCategoryOption=true&query=123&limit=10" \
+  -H "Authorization: <token>"
+```
+
+> В результате отдается JSON со списком значений параметра 60019 для категории Aliexpress 201236503
+
+```json
+[
+  {
+    "name": "гусиный пух",
+    "ozonId": 61811
+  },
+  {
+    "name": "овчина",
+    "ozonId": 61978
+  }
+]
+```
+
+Список значений может отдаваться для параметров с Param.valueType: "ENUM" или "TEXT"
+В этом случае у них обязательно будет проставлен Param.displayType: "SUGGEST", который говорит о том,
+что список значений нужно получать из ответа метода:
+
+https://options.selsup.ru/option/fetchOption?aliexpressCategoryId=201236503&paramId=60019&useCategoryOption=true&query=123&limit=10
+
+Полученные значения необходимо подставлять в качестве option у ParamValue в карточке товара. У значения всегда есть name,
+а вот идентификатор может вообще отсутствовать или может соответствовать идентификаторам значений на
+маркетплейсах
+
+### Параметры запроса
+
+Параметр | Тип | Описание
+--------- | ------- | -----------
+limit | int32 | Количество значений, которое отдать
+query | string | Поисковый запрос
+useCategoryOption | boolean | Необходимо передавать значение соответствующего поля у Param.useCategoryOption
+ozonCategoryId | int64 | Идентификатор категории на Ozon
+wildberriesTypeId | int64 | Идентификатор категории Wildberries
+nationalCatalogId | int64 | ТНВЭД национального каталога
+aliexpressCategoryId | int64 | Категория Aliexpress
+ymCategoryId | int64 | Категория Яндекс.Маркета
+avitoCategoryId | int64 | Категория Авито
 
 ## Поиск категорий
 
