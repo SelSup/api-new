@@ -380,7 +380,7 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='https://selsup.ru/application/integration/pageApi'>Добавить ключ API</a></li>
+            <li><a href='https://selsup.ru/application/integration/api'>Добавить ключ API</a></li>
             <li><a href='https://api.selsup.ru/all.html'>Список всех методов</a></li>
             <li><a href='https://t.me/+fPI_QY47oG0xOGUy'>Чат разработчиков API</a></li>
         </ul>
@@ -393,7 +393,7 @@
 системой продавца и SelSup.</p>
 
 <p>Методы API позволяют использовать весь функционал сервиса SelSup для работы с маркетплейсами Ozon, Wildberries,
-Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авито.</p>
+Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа Мерлен, кассами Эвотор и Авито. Работать со службами доставки.</p>
 
 <p>SelSup позволяет создавать карточки на всех маркетплейсах, заполнять параметры, вести учет остатков товаров, принимать
 заказы по FBS с маркетплейсов и интернет-магазина, обновлять остатки на позиции, по которым пришел заказ. Вести
@@ -402,7 +402,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <p>С помощью API вы можете подключить любые источники заказов к SelSup и вести быстрый учет остатков с маркетплейсов, сайта
 и других источников заказов.</p>
 
-<p>Данная документация в разработке, описаны пока не все методы. Вы можете посмотреть полный список методов по ссылке:
+<p>Вы можете посмотреть полный список методов по ссылке:
 <a href='https://api.selsup.ru/all.html'>https://api.selsup.ru/all.html</a></p>
 
 <p>По умолчанию GET запросы используются для получения данных, все запросы на изменение данных отправляются методом POST</p>
@@ -410,24 +410,20 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <blockquote>
 <p>Как передавать токен авторизации в запросах</p>
 </blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/product/findProduct"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
-<p>Проверьте, что у вас указан ваш базовый адрес сервера вместо &lt;host&gt; и &lt;token&gt; заменен на ваш токен API. Они указаны на странице добавления нового токена</p>
+<p>Проверьте, что у вас указан токен API вместо &lt;token&gt;. Он указан на странице добавления нового токена</p>
 </blockquote>
 
 <p>Перейдите на страницу настройки API:
-<a href='https://selsup.ru/application/integration/pageApi'>https://selsup.ru/application/integration/pageApi</a></p>
+<a href='https://selsup.ru/application/integration/api'>https://selsup.ru/application/integration/api</a></p>
 
 <p>Введите название нового токена в поле и нажмите кнопку Добавить токен. Название должно быть уникальным в рамках вашего
 аккаунта. Рекомендуется для разных сервисов использовать свои токены, чтобы в любой момент можно было отозвать токен.</p>
 
 <p>Токен необходимо передавать в заголовке Authorization: &lt;токен&gt;</p>
-
-<p>Адрес для запросов API так же указан на странице выше в тексте: &quot;Используйте базовый адрес, вашего сервера: ...&quot;</p>
-
-<p>Например: https://selsup.ru/&lt;ваш сервер&gt;/api/</p>
 <h1 id='webhooks'>Webhooks</h1>
 <p>SelSup может отправлять запросы на внешние сервисы и так же получать информацию от внешних сервисов, в случае каких-то событий. Такими событиями могут быть:
  - получение заказа с маркетплейса или от покупателя, в этом случае передается полная информация о заказе
@@ -437,7 +433,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <p>Вы можете настроить Webhook, который будет отправлять HTTP/HTTPS запрос на адрес, который будет указан в кабинете. Возможна отправка POST или GET запроса в нужном формате с необходимыми заголовками.</p>
 
 <p>Так вы сможете настроить интеграцию с любой собственной системой или сайтом.</p>
-<h1 id='e46b2ed83a'>Загрузка файлов</h1><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/files/view?path=&lt;path&gt;"</span> <span class="se">\</span>
+<h1 id='e46b2ed83a'>Загрузка файлов</h1><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/files/view?path=&lt;path&gt;"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <p>Все файлы - изображения, этикетки, документы, видео SelSup сохраняет в файловое хранилище. Все этикетки в этом хранилище отдаются по пути до файла - path. Запросить данные из хранилища вы можете через метод /api/files/view?path=&lt;путь до файла&gt;, при этом для получения некоторых файлов требуется авторизация, а некоторые, как картинки, могут отдаваться и без авторизации.</p>
@@ -445,7 +441,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <p>В случае отсутствия файла отдается ошибка с кодом ответа 404</p>
 
 <p>Вы можете использовать метод /api/files/file?path=&lt;путь до файла&gt;, если вы хотите дать ссылку для скачивания файла</p>
-<h1 id='5179979ddc'>Товары</h1><h2 id='4236a64b12'>Поиск товаров</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/findProduct?query=123&amp;&amp;count=true&amp;sortBy=ID"</span> <span class="se">\</span>
+<h1 id='5179979ddc'>Товары</h1><h2 id='4236a64b12'>Поиск товаров</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/product/findProduct?query=123&amp;&amp;count=true&amp;sortBy=ID"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -456,37 +452,376 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
   </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span><span class="w">
   </span><span class="nl">"rows"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название товара"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6510</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"productType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 44-46"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"skuId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1234</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"52"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"XL"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"printName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 44-46"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"realSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"44-46"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"44-46"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"44-46"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesSizeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">141561601</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonStockBetweenWarehouses"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"removeFbsStock"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"purchaseCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RUB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-06T17:55:24Z[UTC]"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdUser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Импорт"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesSaleQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesQuantityInWay"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastStockChange"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-10-16T13:30:06Z[UTC]"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"instockQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
       </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"ozonArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Ozon"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"aliexpressSku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Aliexpress"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"sberArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул СберМегаМаркета"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"yandexMarketShopSku"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Яндекс.Маркета"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"productViewId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4834</span><span class="p">,</span><span class="w">
       </span><span class="nl">"view"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название цвета или пусто"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"wbArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Артикул Яндекс.Маркета"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D0606черный"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"wbArticle"</span><span class="p">:</span><span class="w"> </span><span class="s2">"D0606черный"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4834</span><span class="p">,</span><span class="w">
         </span><span class="nl">"model"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"manufacturer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Производитель"</span><span class="w">
-          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"article"</span><span class="p">:</span><span class="w"> </span><span class="s2">"68996302"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"category"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"categoryId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название категории"</span><span class="w">
+            </span><span class="nl">"categoryId"</span><span class="p">:</span><span class="w"> </span><span class="mi">36</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Инструменты"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"marked"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"categoryClass"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OTHER"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"tnved"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6204430000</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MAIN"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"categoryClass"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"parentId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"keywords"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"paramsTnvedId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"isInParam"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"certification"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6204430000"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"parentCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nl">"tnvedId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6204430000</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"removeFbsStock"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"manufacturer"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"manufacturerId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Default"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Россия"</span><span class="w">
           </span><span class="p">},</span><span class="w">
           </span><span class="nl">"brand"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"brandId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Название бренда"</span><span class="w">
-          </span><span class="p">}</span><span class="w">
+            </span><span class="nl">"brandId"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Monterey"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"brandId"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4302</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платье летнее женское больших размеров хлопок повседневное"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платье летнее женское больших размеров хлопок повседневное"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"materials"</span><span class="p">:</span><span class="w"> </span><span class="s2">"хлопок 50%, вискоза 30%, полиэстер 20%"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"vat"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NONE"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"countryId"</span><span class="p">:</span><span class="w"> </span><span class="mi">643</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"countryName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Россия"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"favourite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"actual"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"mainImage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">54</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"product/images/4834/4eac5720-99ba-4cbc-ab52-c6351ce02977.jpg"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"position"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"width"</span><span class="p">:</span><span class="w"> </span><span class="mi">900</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"height"</span><span class="p">:</span><span class="w"> </span><span class="mi">1200</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productViewId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4834</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">525879</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesImgUUID"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"services"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"mainImageId"</span><span class="p">:</span><span class="w"> </span><span class="mi">54</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"mainImageUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://basket-05.wb.ru/vol870/part87042/87042014/images/big/1.jpg"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"wildberriesId"</span><span class="p">:</span><span class="w"> </span><span class="mi">87042014</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"wildberriesStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"nationalCatalogStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ymarketFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"skuId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6121</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"barcodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6073</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4605505279171"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6510</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"useInWildberries"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"useInOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"useInYandexMarket"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"useInAliexpress"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ean13"</span><span class="w">
         </span><span class="p">}</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"group"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"48-50"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6511</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 48-50"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"printName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 48-50"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"realSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"48-50"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"48-50"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"48-50"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSizeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">141561603</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStockBetweenWarehouses"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStock"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"purchaseCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RUB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-06T17:55:24Z[UTC]"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdUser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Импорт"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSaleQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesQuantityInWay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"instockQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productViewId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4834</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"nationalCatalogStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ymarketFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"skuId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6122</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"barcodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6074</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4605505279195"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6511</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInWildberries"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInYandexMarket"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInAliexpress"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ean13"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="nl">"yandexMarketStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"aliexpressStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"moySkladStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"avitoStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockWb"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockAli"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockYm"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockSber"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"priceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deliveryCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesPriceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"salesExpensesOnMpPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"taxeRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"desiredMarginalityPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"desiredProfitRub"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"additionalCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"packWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"packHeight"</span><span class="p">:</span><span class="w"> </span><span class="mi">450</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"totalOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"totalFbsOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"emptyBarcodes"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"46-48"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6513</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 46-48"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"printName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 46-48"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"realSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46-48"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46-48"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"46-48"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSizeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">141561602</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStockBetweenWarehouses"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStock"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"purchaseCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RUB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-06T17:55:25Z[UTC]"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdUser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Импорт"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSaleQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesQuantityInWay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"instockQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productViewId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4834</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"nationalCatalogStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ymarketFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"skuId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6124</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"barcodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6076</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4605505279188"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6513</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInWildberries"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInYandexMarket"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInAliexpress"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ean13"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="nl">"yandexMarketStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"aliexpressStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"moySkladStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"avitoStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockWb"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockAli"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockYm"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockSber"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"priceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deliveryCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesPriceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"salesExpensesOnMpPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"taxeRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"desiredMarginalityPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"desiredProfitRub"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"additionalCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"packWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"packHeight"</span><span class="p">:</span><span class="w"> </span><span class="mi">450</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"totalOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"totalFbsOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"emptyBarcodes"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nl">"50-52"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6512</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PRODUCT"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 50-52"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deleted"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"printName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Платья D0606черный черный, размер 50-52"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"realSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50-52"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"vendorSize"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50-52"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"50-52"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSizeId"</span><span class="p">:</span><span class="w"> </span><span class="mi">141561604</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStockCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStockBetweenWarehouses"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStock"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"purchaseCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RUB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2023-06-06T17:55:24Z[UTC]"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"createdUser"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Импорт"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesSaleQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesQuantityInWay"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonOrderQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonSupplyingQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"instockQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"productViewId"</span><span class="p">:</span><span class="w"> </span><span class="mi">4834</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"nationalCatalogStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ozonFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"ymarketFbsOrdersQuantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"skuId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6123</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"barcodes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6075</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"barcode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4605505279201"</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"organizationId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"productId"</span><span class="p">:</span><span class="w"> </span><span class="mi">6512</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInWildberries"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInYandexMarket"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"useInAliexpress"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"format"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ean13"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">],</span><span class="w">
+          </span><span class="nl">"yandexMarketStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"aliexpressStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"moySkladStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"avitoStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockWb"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockAli"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockYm"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"removeFbsStockSber"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"priceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"deliveryCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"wildberriesPriceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"salesExpensesOnMpPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"taxeRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"desiredMarginalityPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"desiredProfitRub"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"additionalCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"packWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"packHeight"</span><span class="p">:</span><span class="w"> </span><span class="mi">450</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"totalOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"totalFbsOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"emptyBarcodes"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"yandexMarketStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"aliexpressStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"moySkladStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"avitoStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UNKNOWN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"removeFbsStockOzon"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"removeFbsStockWb"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"removeFbsStockAli"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"removeFbsStockYm"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"removeFbsStockSber"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"priceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deliveryCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesAverageExpenses"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesPrice"</span><span class="p">:</span><span class="w"> </span><span class="mf">630.0000000000001</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesPriceWithoutDiscount"</span><span class="p">:</span><span class="w"> </span><span class="mi">4200</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"salesExpensesOnMpPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"taxeRate"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"desiredMarginalityPercent"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"desiredProfitRub"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalCost"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"packWidth"</span><span class="p">:</span><span class="w"> </span><span class="mi">250</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"packHeight"</span><span class="p">:</span><span class="w"> </span><span class="mi">450</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"packDepth"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalFbsOrdersCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesSaleLogistic"</span><span class="p">:</span><span class="w"> </span><span class="mi">45</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesReturnLogistic"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"wildberriesComission"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonSaleLogistic"</span><span class="p">:</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonReturnLogistic"</span><span class="p">:</span><span class="w"> </span><span class="mi">51</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonCommission"</span><span class="p">:</span><span class="w"> </span><span class="mf">11.5</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ozonLastMile"</span><span class="p">:</span><span class="w"> </span><span class="mf">5.5</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"emptyBarcodes"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -538,9 +873,44 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <td>Поиск по артикула товара в SelSup</td>
 </tr>
 <tr>
+<td>color</td>
+<td>string</td>
+<td>Поиск по названию цвета товара</td>
+</tr>
+<tr>
+<td>viewId</td>
+<td>int64</td>
+<td>Поиск по идентификатору цвета</td>
+</tr>
+<tr>
+<td>skuViewId</td>
+<td>int64</td>
+<td>Поиск по SKU идентификатору цвета</td>
+</tr>
+<tr>
+<td>modelId</td>
+<td>int64</td>
+<td>Поиск по идентификатору модели</td>
+</tr>
+<tr>
+<td>organizations</td>
+<td>int64[]</td>
+<td>Ограничивает список организаций</td>
+</tr>
+<tr>
+<td>unprofitable</td>
+<td>boolean</td>
+<td>Товары с отрицательной маржинальностью</td>
+</tr>
+<tr>
 <td>needToBuy</td>
 <td>boolean</td>
 <td>Товары, которые необходимо закупить</td>
+</tr>
+<tr>
+<td>hasImages</td>
+<td>boolean</td>
+<td>Наличие или отсутствие картинок у товара</td>
 </tr>
 <tr>
 <td>inStock</td>
@@ -807,7 +1177,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 <p>Передавайте параметр params=true, чтобы получить в ответе список значений values.</p>
 
 <p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/getModelById">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/getModelById?id=1&amp;params=true"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/product/getModelById?id=1&amp;params=true"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -1020,7 +1390,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </tbody></table>
 <h2 id='1cfa8f12c1'>Создание модели</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/createModel">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/createModel"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/product/createModel"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "article": "Уникальный артикул товара",
   "organizationId": 123,
@@ -1268,7 +1638,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </tbody></table>
 <h2 id='3eb901a267'>Редактирование модели</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/updateModel">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/product/updateModel"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/product/updateModel"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "article": "Уникальный артикул товара",
   "organizationId": 123,
@@ -1661,7 +2031,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </tbody></table>
 <h2 id='682a9e177a'>Поиск категорий</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findCategory">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/knowledge/findCategory?query=text&amp;limit=50"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/knowledge/findCategory?query=text&amp;limit=50"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -1832,7 +2202,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </tbody></table>
 <h2 id='1fa1c29cb9'>Поиск бренда</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findBrand">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/knowledge/findBrand?query=text&amp;limit=50"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/knowledge/findBrand?query=text&amp;limit=50"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -1956,7 +2326,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авит�
 </tbody></table>
 <h1 id='22ac8458d7'>Заказы</h1><h2 id='752c630b66'>Создание заказа с сайта</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/createOrder">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/order/createOrder"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/createOrder"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "RETAIL",
@@ -2094,7 +2464,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Идентификатор товара в SelSup. Передается в ответе findProduct</td>
 </tr>
 </tbody></table>
-<h2 id='69733566a2'>Создание отгрузки на маркетплейс</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/order/createOrder"</span> <span class="se">\</span>
+<h2 id='69733566a2'>Создание отгрузки на маркетплейс</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/createOrder"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "FBM",
@@ -2129,7 +2499,7 @@ productId - идентификатор товара в SelSup. Сделать э
 информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты
 используется externalOrderId</p>
 <h3 id='5c196ee857'>Запрос</h3>
-<p><code>POST https://selsup.ru/&lt;host&gt;/api/order/createOrder</code></p>
+<p><code>POST https://api.selsup.ru/api/order/createOrder</code></p>
 <h3 id='json'>Тело запроса JSON с ключами</h3>
 <table><thead>
 <tr>
@@ -2214,7 +2584,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Не указана цена у позиции заказа products[index].price</td>
 </tr>
 </tbody></table>
-<h2 id='da445bf6b8'>Получение списка заказов</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://selsup.ru/&lt;host&gt;/api/order/findOrder?type=FBS&amp;actual=true&amp;count=true"</span> <span class="se">\</span>
+<h2 id='da445bf6b8'>Получение списка заказов</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/order/findOrder?type=FBS&amp;actual=true&amp;count=true"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -2592,7 +2962,7 @@ productId - идентификатор товара в SelSup. Сделать э
 2)Когда остаток хранится просто к привязки к ячейке по штрих-коду. В этом случае в остатке записывается количество - сколько лежит определенного товара в данной ячейке.</p>
 <h2 id='e7fa07f1aa'>Изменение остатков</h2>
 <p><a href="https://api.selsup.ru/all.html#tag/Hranenie-tovara-na-sklade-(WMS)/operation/changeStock">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://selsup.ru/&lt;host&gt;/api/wms/changeStock?skuId=123&amp;stock=5&amp;warehouseId=123"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/wms/changeStock?skuId=123&amp;stock=5&amp;warehouseId=123"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>

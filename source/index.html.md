@@ -5,7 +5,7 @@ language_tabs: # must be one of https://github.com/rouge-ruby/rouge/wiki/List-of
   - shell
 
 toc_footers:
-  - <a href='https://selsup.ru/application/integration/pageApi'>Добавить ключ API</a>
+  - <a href='https://selsup.ru/application/integration/api'>Добавить ключ API</a>
   - <a href='https://api.selsup.ru/all.html'>Список всех методов</a>
   - <a href='https://t.me/+fPI_QY47oG0xOGUy'>Чат разработчиков API</a>
 
@@ -24,7 +24,7 @@ SelSup API — программный интерфейс для работы с 
 системой продавца и SelSup.
 
 Методы API позволяют использовать весь функционал сервиса SelSup для работы с маркетплейсами Ozon, Wildberries,
-Aliexpress, Яндекс.Маркет, СберМегаМаркет и Авито.
+Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа Мерлен, кассами Эвотор и Авито. Работать со службами доставки.
 
 SelSup позволяет создавать карточки на всех маркетплейсах, заполнять параметры, вести учет остатков товаров, принимать
 заказы по FBS с маркетплейсов и интернет-магазина, обновлять остатки на позиции, по которым пришел заказ. Вести
@@ -33,7 +33,7 @@ SelSup позволяет создавать карточки на всех ма
 С помощью API вы можете подключить любые источники заказов к SelSup и вести быстрый учет остатков с маркетплейсов, сайта
 и других источников заказов.
 
-Данная документация в разработке, описаны пока не все методы. Вы можете посмотреть полный список методов по ссылке:
+Вы можете посмотреть полный список методов по ссылке:
 <a href='https://api.selsup.ru/all.html'>https://api.selsup.ru/all.html</a>
 
 По умолчанию GET запросы используются для получения данных, все запросы на изменение данных отправляются методом POST
@@ -43,23 +43,19 @@ SelSup позволяет создавать карточки на всех ма
 > Как передавать токен авторизации в запросах
 
 ```shell
-curl "https://selsup.ru/<host>/api/product/findProduct" \
+curl "https://api.selsup.ru/api/product/findProduct" \
   -H "Authorization: <token>"
 ```
 
-> Проверьте, что у вас указан ваш базовый адрес сервера вместо &lt;host&gt; и &lt;token&gt; заменен на ваш токен API. Они указаны на странице добавления нового токена
+> Проверьте, что у вас указан токен API вместо &lt;token&gt;. Он указан на странице добавления нового токена
 
 Перейдите на страницу настройки API:
-<a href='https://selsup.ru/application/integration/pageApi'>https://selsup.ru/application/integration/pageApi</a>
+<a href='https://selsup.ru/application/integration/api'>https://selsup.ru/application/integration/api</a>
 
 Введите название нового токена в поле и нажмите кнопку Добавить токен. Название должно быть уникальным в рамках вашего
 аккаунта. Рекомендуется для разных сервисов использовать свои токены, чтобы в любой момент можно было отозвать токен.
 
 Токен необходимо передавать в заголовке Authorization: <токен>
-
-Адрес для запросов API так же указан на странице выше в тексте: "Используйте базовый адрес, вашего сервера: ..."
-
-Например: https://selsup.ru/<ваш сервер>/api/
 
 # Webhooks
 
@@ -75,7 +71,7 @@ SelSup может отправлять запросы на внешние сер
 # Загрузка файлов
 
 ```shell
-curl "https://selsup.ru/<host>/api/files/view?path=<path>" \
+curl "https://api.selsup.ru/api/files/view?path=<path>" \
   -H "Authorization: <token>"
 ```
 
@@ -90,7 +86,7 @@ curl "https://selsup.ru/<host>/api/files/view?path=<path>" \
 ## Поиск товаров
 
 ```shell
-curl "https://selsup.ru/<host>/api/product/findProduct?query=123&&count=true&sortBy=ID" \
+curl "https://api.selsup.ru/api/product/findProduct?query=123&&count=true&sortBy=ID" \
   -H "Authorization: <token>"
 ```
 
@@ -102,37 +98,376 @@ curl "https://selsup.ru/<host>/api/product/findProduct?query=123&&count=true&sor
   "total": 1000,
   "rows": [
     {
-      "id": 1,
-      "name": "Название товара",
+      "id": 6510,
+      "productType": "PRODUCT",
+      "name": "Платья D0606черный черный, размер 44-46",
       "deleted": false,
-      "skuId": 1234,
-      "size": "52",
-      "vendorSize": "XL",
+      "printName": "Платья D0606черный черный, размер 44-46",
+      "realSize": "44-46",
+      "vendorSize": "44-46",
+      "size": "44-46",
+      "wildberriesStockCount": 0,
+      "wildberriesSizeId": 141561601,
+      "ozonStockCount": 0,
+      "ozonStockBetweenWarehouses": 0,
+      "removeFbsStock": false,
+      "purchaseCurrency": "RUB",
+      "createdDate": "2023-06-06T17:55:24Z[UTC]",
+      "createdUser": "Импорт",
+      "wildberriesOrderQuantity": 2,
+      "wildberriesSupplyingQuantity": 0,
+      "wildberriesSaleQuantity": 0,
+      "wildberriesQuantityInWay": 1,
+      "lastStockChange": "2023-10-16T13:30:06Z[UTC]",
+      "ozonOrderQuantity": 0,
+      "ozonSupplyingQuantity": 0,
+      "instockQuantity": 0,
+      "clientId": 1,
       "organizationId": 1,
-      "ozonArticle": "Артикул Ozon",
-      "aliexpressSku": "Артикул Aliexpress",
-      "sberArticle": "Артикул СберМегаМаркета",
-      "yandexMarketShopSku": "Артикул Яндекс.Маркета",
+      "productViewId": 4834,
       "view": {
-        "id": 1,
-        "color": "Название цвета или пусто",
-        "wbArticle": "Артикул Яндекс.Маркета",
+        "color": "D0606черный",
+        "wbArticle": "D0606черный",
+        "id": 4834,
         "model": {
-          "id": 1,
-          "manufacturer": {
-            "id": 1,
-            "name": "Производитель"
-          },
+          "article": "68996302",
           "category": {
-            "categoryId": 1,
-            "name": "Название категории"
+            "categoryId": 36,
+            "name": "Инструменты",
+            "marked": true,
+            "categoryClass": "OTHER",
+            "tnved": {
+              "id": 6204430000,
+              "name": null,
+              "deleted": null,
+              "type": "MAIN",
+              "categoryClass": null,
+              "parentId": null,
+              "keywords": null,
+              "description": null,
+              "paramsTnvedId": null,
+              "isInParam": null,
+              "certification": null,
+              "code": "6204430000",
+              "parentCode": ""
+            },
+            "tnvedId": 6204430000,
+            "removeFbsStock": false
+          },
+          "manufacturer": {
+            "manufacturerId": 1,
+            "title": "Default",
+            "name": "Default",
+            "address": "Россия"
           },
           "brand": {
-            "brandId": 1,
-            "name": "Название бренда"
-          }
+            "brandId": 10,
+            "name": "Monterey"
+          },
+          "brandId": 10,
+          "id": 4302,
+          "name": "Платье летнее женское больших размеров хлопок повседневное",
+          "title": "Платье летнее женское больших размеров хлопок повседневное",
+          "materials": "хлопок 50%, вискоза 30%, полиэстер 20%",
+          "deleted": false,
+          "vat": "NONE",
+          "countryId": 643,
+          "countryName": "Россия",
+          "favourite": false
+        },
+        "actual": true,
+        "mainImage": {
+          "type": null,
+          "id": 54,
+          "path": "product/images/4834/4eac5720-99ba-4cbc-ab52-c6351ce02977.jpg",
+          "position": 1,
+          "width": 900,
+          "height": 1200,
+          "productViewId": 4834,
+          "size": 525879,
+          "wildberriesImgUUID": null,
+          "services": null
+        },
+        "mainImageId": 54,
+        "mainImageUrl": "https://basket-05.wb.ru/vol870/part87042/87042014/images/big/1.jpg",
+        "wildberriesId": 87042014,
+        "deleted": false
+      },
+      "wildberriesStatus": "SUCCESS",
+      "nationalCatalogStatus": "UNKNOWN",
+      "ozonStatus": "UNKNOWN",
+      "wildberriesFbsOrdersQuantity": 0,
+      "ozonFbsOrdersQuantity": 0,
+      "ymarketFbsOrdersQuantity": 0,
+      "skuId": 6121,
+      "barcodes": [
+        {
+          "id": 6073,
+          "barcode": "4605505279171",
+          "organizationId": 0,
+          "clientId": 1,
+          "productId": 6510,
+          "useInWildberries": true,
+          "useInOzon": true,
+          "useInYandexMarket": true,
+          "useInAliexpress": false,
+          "format": "ean13"
         }
-      }
+      ],
+      "group": {
+        "48-50": {
+          "id": 6511,
+          "productType": "PRODUCT",
+          "name": "Платья D0606черный черный, размер 48-50",
+          "deleted": false,
+          "printName": "Платья D0606черный черный, размер 48-50",
+          "realSize": "48-50",
+          "vendorSize": "48-50",
+          "size": "48-50",
+          "wildberriesStockCount": 0,
+          "wildberriesSizeId": 141561603,
+          "ozonStockCount": 0,
+          "ozonStockBetweenWarehouses": 0,
+          "removeFbsStock": false,
+          "purchaseCurrency": "RUB",
+          "createdDate": "2023-06-06T17:55:24Z[UTC]",
+          "createdUser": "Импорт",
+          "wildberriesOrderQuantity": 0,
+          "wildberriesSupplyingQuantity": 0,
+          "wildberriesSaleQuantity": 0,
+          "wildberriesQuantityInWay": 0,
+          "ozonOrderQuantity": 0,
+          "ozonSupplyingQuantity": 0,
+          "instockQuantity": 0,
+          "clientId": 1,
+          "organizationId": 1,
+          "productViewId": 4834,
+          "wildberriesStatus": "SUCCESS",
+          "nationalCatalogStatus": "UNKNOWN",
+          "ozonStatus": "UNKNOWN",
+          "wildberriesFbsOrdersQuantity": 0,
+          "ozonFbsOrdersQuantity": 0,
+          "ymarketFbsOrdersQuantity": 0,
+          "skuId": 6122,
+          "barcodes": [
+            {
+              "id": 6074,
+              "barcode": "4605505279195",
+              "organizationId": 0,
+              "clientId": 1,
+              "productId": 6511,
+              "useInWildberries": true,
+              "useInOzon": true,
+              "useInYandexMarket": true,
+              "useInAliexpress": false,
+              "format": "ean13"
+            }
+          ],
+          "yandexMarketStatus": "UNKNOWN",
+          "aliexpressStatus": "UNKNOWN",
+          "moySkladStatus": "UNKNOWN",
+          "avitoStatus": "UNKNOWN",
+          "removeFbsStockOzon": false,
+          "removeFbsStockWb": false,
+          "removeFbsStockAli": false,
+          "removeFbsStockYm": false,
+          "removeFbsStockSber": false,
+          "price": 630.0000000000001,
+          "priceWithoutDiscount": 4200,
+          "deliveryCost": 0,
+          "wildberriesPrice": 630.0000000000001,
+          "wildberriesPriceWithoutDiscount": 4200,
+          "salesExpensesOnMpPercent": 20,
+          "taxeRate": 0,
+          "desiredMarginalityPercent": 0,
+          "desiredProfitRub": 0,
+          "additionalCost": 0,
+          "packWidth": 250,
+          "packHeight": 450,
+          "totalOrdersCount": 0,
+          "totalFbsOrdersCount": 0,
+          "emptyBarcodes": false
+        },
+        "46-48": {
+          "id": 6513,
+          "productType": "PRODUCT",
+          "name": "Платья D0606черный черный, размер 46-48",
+          "deleted": false,
+          "printName": "Платья D0606черный черный, размер 46-48",
+          "realSize": "46-48",
+          "vendorSize": "46-48",
+          "size": "46-48",
+          "wildberriesStockCount": 0,
+          "wildberriesSizeId": 141561602,
+          "ozonStockCount": 0,
+          "ozonStockBetweenWarehouses": 0,
+          "removeFbsStock": false,
+          "purchaseCurrency": "RUB",
+          "createdDate": "2023-06-06T17:55:25Z[UTC]",
+          "createdUser": "Импорт",
+          "wildberriesOrderQuantity": 0,
+          "wildberriesSupplyingQuantity": 0,
+          "wildberriesSaleQuantity": 0,
+          "wildberriesQuantityInWay": 0,
+          "ozonOrderQuantity": 0,
+          "ozonSupplyingQuantity": 0,
+          "instockQuantity": 0,
+          "clientId": 1,
+          "organizationId": 1,
+          "productViewId": 4834,
+          "wildberriesStatus": "SUCCESS",
+          "nationalCatalogStatus": "UNKNOWN",
+          "ozonStatus": "UNKNOWN",
+          "wildberriesFbsOrdersQuantity": 0,
+          "ozonFbsOrdersQuantity": 0,
+          "ymarketFbsOrdersQuantity": 0,
+          "skuId": 6124,
+          "barcodes": [
+            {
+              "id": 6076,
+              "barcode": "4605505279188",
+              "organizationId": 0,
+              "clientId": 1,
+              "productId": 6513,
+              "useInWildberries": true,
+              "useInOzon": true,
+              "useInYandexMarket": true,
+              "useInAliexpress": false,
+              "format": "ean13"
+            }
+          ],
+          "yandexMarketStatus": "UNKNOWN",
+          "aliexpressStatus": "UNKNOWN",
+          "moySkladStatus": "UNKNOWN",
+          "avitoStatus": "UNKNOWN",
+          "removeFbsStockOzon": false,
+          "removeFbsStockWb": false,
+          "removeFbsStockAli": false,
+          "removeFbsStockYm": false,
+          "removeFbsStockSber": false,
+          "price": 630.0000000000001,
+          "priceWithoutDiscount": 4200,
+          "deliveryCost": 0,
+          "wildberriesPrice": 630.0000000000001,
+          "wildberriesPriceWithoutDiscount": 4200,
+          "salesExpensesOnMpPercent": 20,
+          "taxeRate": 0,
+          "desiredMarginalityPercent": 0,
+          "desiredProfitRub": 0,
+          "additionalCost": 0,
+          "packWidth": 250,
+          "packHeight": 450,
+          "totalOrdersCount": 0,
+          "totalFbsOrdersCount": 0,
+          "emptyBarcodes": false
+        },
+        "50-52": {
+          "id": 6512,
+          "productType": "PRODUCT",
+          "name": "Платья D0606черный черный, размер 50-52",
+          "deleted": false,
+          "printName": "Платья D0606черный черный, размер 50-52",
+          "realSize": "50-52",
+          "vendorSize": "50-52",
+          "size": "50-52",
+          "wildberriesStockCount": 0,
+          "wildberriesSizeId": 141561604,
+          "ozonStockCount": 0,
+          "ozonStockBetweenWarehouses": 0,
+          "removeFbsStock": false,
+          "purchaseCurrency": "RUB",
+          "createdDate": "2023-06-06T17:55:24Z[UTC]",
+          "createdUser": "Импорт",
+          "wildberriesOrderQuantity": 0,
+          "wildberriesSupplyingQuantity": 0,
+          "wildberriesSaleQuantity": 0,
+          "wildberriesQuantityInWay": 0,
+          "ozonOrderQuantity": 0,
+          "ozonSupplyingQuantity": 0,
+          "instockQuantity": 0,
+          "clientId": 1,
+          "organizationId": 1,
+          "productViewId": 4834,
+          "wildberriesStatus": "SUCCESS",
+          "nationalCatalogStatus": "UNKNOWN",
+          "ozonStatus": "UNKNOWN",
+          "wildberriesFbsOrdersQuantity": 0,
+          "ozonFbsOrdersQuantity": 0,
+          "ymarketFbsOrdersQuantity": 0,
+          "skuId": 6123,
+          "barcodes": [
+            {
+              "id": 6075,
+              "barcode": "4605505279201",
+              "organizationId": 0,
+              "clientId": 1,
+              "productId": 6512,
+              "useInWildberries": true,
+              "useInOzon": true,
+              "useInYandexMarket": true,
+              "useInAliexpress": false,
+              "format": "ean13"
+            }
+          ],
+          "yandexMarketStatus": "UNKNOWN",
+          "aliexpressStatus": "UNKNOWN",
+          "moySkladStatus": "UNKNOWN",
+          "avitoStatus": "UNKNOWN",
+          "removeFbsStockOzon": false,
+          "removeFbsStockWb": false,
+          "removeFbsStockAli": false,
+          "removeFbsStockYm": false,
+          "removeFbsStockSber": false,
+          "price": 630.0000000000001,
+          "priceWithoutDiscount": 4200,
+          "deliveryCost": 0,
+          "wildberriesPrice": 630.0000000000001,
+          "wildberriesPriceWithoutDiscount": 4200,
+          "salesExpensesOnMpPercent": 20,
+          "taxeRate": 0,
+          "desiredMarginalityPercent": 0,
+          "desiredProfitRub": 0,
+          "additionalCost": 0,
+          "packWidth": 250,
+          "packHeight": 450,
+          "totalOrdersCount": 0,
+          "totalFbsOrdersCount": 0,
+          "emptyBarcodes": false
+        }
+      },
+      "yandexMarketStatus": "UNKNOWN",
+      "aliexpressStatus": "UNKNOWN",
+      "moySkladStatus": "UNKNOWN",
+      "avitoStatus": "UNKNOWN",
+      "removeFbsStockOzon": false,
+      "removeFbsStockWb": false,
+      "removeFbsStockAli": false,
+      "removeFbsStockYm": false,
+      "removeFbsStockSber": false,
+      "price": 630.0000000000001,
+      "priceWithoutDiscount": 4200,
+      "deliveryCost": 0,
+      "wildberriesAverageExpenses": 1,
+      "wildberriesPrice": 630.0000000000001,
+      "wildberriesPriceWithoutDiscount": 4200,
+      "salesExpensesOnMpPercent": 20,
+      "taxeRate": 0,
+      "desiredMarginalityPercent": 0,
+      "desiredProfitRub": 0,
+      "additionalCost": 0,
+      "packWidth": 250,
+      "packHeight": 450,
+      "packDepth": 10,
+      "totalOrdersCount": 2,
+      "totalFbsOrdersCount": 0,
+      "wildberriesSaleLogistic": 45,
+      "wildberriesReturnLogistic": 50,
+      "wildberriesComission": 20,
+      "ozonSaleLogistic": 51,
+      "ozonReturnLogistic": 51,
+      "ozonCommission": 11.5,
+      "ozonLastMile": 5.5,
+      "emptyBarcodes": false
     }
   ]
 }
@@ -153,7 +488,14 @@ sortBy | enum | Поле по которому отсортировать дан
 ascending | boolean | Сортировать по возврастанию данные
 query | string | Поисковый запрос по названию, штрих-коду или артикулу товара
 article | string | Поиск по артикула товара в SelSup
+color | string | Поиск по названию цвета товара
+viewId | int64 | Поиск по идентификатору цвета
+skuViewId | int64 | Поиск по SKU идентификатору цвета
+modelId | int64 | Поиск по идентификатору модели
+organizations | int64[] | Ограничивает список организаций
+unprofitable | boolean | Товары с отрицательной маржинальностью
 needToBuy | boolean | Товары, которые необходимо закупить
+hasImages | boolean | Наличие или отсутствие картинок у товара
 inStock | boolean | Наличие остатков товаров на маркетплейсе или складе SelSup
 noStock | boolean | Отсутствие остатков товаров на маркетплейсе и складе SelSup
 
@@ -230,7 +572,7 @@ manufacturer | Manufacturer | Объект описывающий Произво
 <a href="https://api.selsup.ru/all.html#tag/Tovary/operation/getModelById">Полный список полей</a>
 
 ```shell
-curl "https://selsup.ru/<host>/api/product/getModelById?id=1&params=true" \
+curl "https://api.selsup.ru/api/product/getModelById?id=1&params=true" \
   -H "Authorization: <token>"
 ```
 
@@ -325,7 +667,7 @@ barcodes | array of ProductBarcode | Список штрих-кодов
 <a href="https://api.selsup.ru/all.html#tag/Tovary/operation/createModel">Полный список полей</a>
 
 ```shell
-curl -X POST "https://selsup.ru/<host>/api/product/createModel" \
+curl -X POST "https://api.selsup.ru/api/product/createModel" \
   -H "Authorization: <token>" -data '{
   "article": "Уникальный артикул товара",
   "organizationId": 123,
@@ -459,7 +801,7 @@ name | string | Да | Название товара полное
 <a href="https://api.selsup.ru/all.html#tag/Tovary/operation/updateModel">Полный список полей</a>
 
 ```shell
-curl -X POST "https://selsup.ru/<host>/api/product/updateModel" \
+curl -X POST "https://api.selsup.ru/api/product/updateModel" \
   -H "Authorization: <token>" -data '{
   "article": "Уникальный артикул товара",
   "organizationId": 123,
@@ -694,7 +1036,7 @@ avitoCategoryId | int64 | Категория Авито
 <a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findCategory">Полный список полей</a>
 
 ```shell
-curl "https://selsup.ru/<host>/api/knowledge/findCategory?query=text&limit=50" \
+curl "https://api.selsup.ru/api/knowledge/findCategory?query=text&limit=50" \
   -H "Authorization: <token>"
 ```
 
@@ -779,7 +1121,7 @@ deleted | boolean | Помечен удаленным?
 <a href="https://api.selsup.ru/all.html#tag/Znaniya-o-tovarah/operation/findBrand">Полный список полей</a>
 
 ```shell
-curl "https://selsup.ru/<host>/api/knowledge/findBrand?query=text&limit=50" \
+curl "https://api.selsup.ru/api/knowledge/findBrand?query=text&limit=50" \
   -H "Authorization: <token>"
 ```
 
@@ -843,7 +1185,7 @@ deleted | boolean | Помечен удаленным?
 <a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/createOrder">Полный список полей</a>
 
 ```shell
-curl -X POST "https://selsup.ru/<host>/api/order/createOrder" \
+curl -X POST "https://api.selsup.ru/api/order/createOrder" \
   -H "Authorization: <token>" -data '{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "RETAIL",
@@ -917,7 +1259,7 @@ productId | int64 | Да | Идентификатор товара в SelSup. П
 ## Создание отгрузки на маркетплейс
 
 ```shell
-curl -X POST "https://selsup.ru/<host>/api/order/createOrder" \
+curl -X POST "https://api.selsup.ru/api/order/createOrder" \
   -H "Authorization: <token>" -data '{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "FBM",
@@ -956,7 +1298,7 @@ curl -X POST "https://selsup.ru/<host>/api/order/createOrder" \
 
 ### Запрос
 
-`POST https://selsup.ru/<host>/api/order/createOrder`
+`POST https://api.selsup.ru/api/order/createOrder`
 
 ### Тело запроса JSON с ключами
 
@@ -993,7 +1335,7 @@ error_no_price_for_order_product | Не указана цена у позици�
 ## Получение списка заказов
 
 ```shell
-curl "https://selsup.ru/<host>/api/order/findOrder?type=FBS&actual=true&count=true" \
+curl "https://api.selsup.ru/api/order/findOrder?type=FBS&actual=true&count=true" \
   -H "Authorization: <token>"
 ```
 
@@ -1189,7 +1531,7 @@ stickerText | string | Текстовый штрих-код на этикетк�
 <a href="https://api.selsup.ru/all.html#tag/Hranenie-tovara-na-sklade-(WMS)/operation/changeStock">Полный список полей</a>
 
 ```shell
-curl -X POST "https://selsup.ru/<host>/api/wms/changeStock?skuId=123&stock=5&warehouseId=123" \
+curl -X POST "https://api.selsup.ru/api/wms/changeStock?skuId=123&stock=5&warehouseId=123" \
   -H "Authorization: <token>"
 ```
 
