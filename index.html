@@ -845,7 +845,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/findProduct">Полный список полей</a></p>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/find">Полный список полей</a></p>
 
 <p>Позволяет найти товары по фильтрам и поисковому запросу, либо просто получить все товары по порядку. Для выбора всех товаров лучше передавать sortBy=ID, чтобы новые товары не изменяли порядок сортировки. count=true лучше передавать только в первом запросе. Метод не отдает полную информацию о товаре, только основные поля, которые отображаются на списке товаров. Чтобы получить полную информацию о карточке, необходимо запросить ее по ID модели.</p>
 <h3 id='88964dca07'>Параметры запроса</h3>
@@ -1408,7 +1408,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
 </tr>
 </tbody></table>
 <h2 id='1cfa8f12c1'>Создание модели</h2>
-<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/createModel">Полный список полей</a></p>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/create">Полный список полей</a></p>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/product/createModel"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "article": "Уникальный артикул товара",
@@ -1656,7 +1656,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
 </tr>
 </tbody></table>
 <h2 id='3eb901a267'>Редактирование модели</h2>
-<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/updateModel">Полный список полей</a></p>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/update">Полный список полей</a></p>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/product/updateModel"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "article": "Уникальный артикул товара",
@@ -2344,8 +2344,8 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
 </tr>
 </tbody></table>
 <h1 id='22ac8458d7'>Заказы</h1><h2 id='752c630b66'>Создание заказа с сайта</h2>
-<p><a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/createOrder">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/createOrder"</span> <span class="se">\</span>
+<p><a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/orderNew">Полный список полей</a></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "RETAIL",
@@ -2483,7 +2483,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Идентификатор товара в SelSup. Передается в ответе findProduct</td>
 </tr>
 </tbody></table>
-<h2 id='69733566a2'>Создание отгрузки на маркетплейс</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/createOrder"</span> <span class="se">\</span>
+<h2 id='69733566a2'>Создание отгрузки на маркетплейс</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "FBM",
@@ -2518,7 +2518,7 @@ productId - идентификатор товара в SelSup. Сделать э
 информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты
 используется externalOrderId</p>
 <h3 id='5c196ee857'>Запрос</h3>
-<p><code>POST https://api.selsup.ru/api/order/createOrder</code></p>
+<p><code>POST https://api.selsup.ru/api/order</code></p>
 <h3 id='json'>Тело запроса JSON с ключами</h3>
 <table><thead>
 <tr>
@@ -2727,7 +2727,7 @@ page, чтобы выбрать все данные, пока количеств
 состав заказа, параметры заказа или статус. В заказе отдается поле modifiedDate по которому вы можете выбирать
 заказы. В фильтрах есть поле modifiedDate в котором указывается дата и отдаются заказы которые изменились
 начиная с указанной даты</p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/order/findOrder?type=FBS&amp;modifiedDate=2024-06-20T15:00:00Z"</span> <span class="se">\</span>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/order/find?type=FBS&amp;modifiedDate=2024-06-20T15:00:00Z"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div><h3 id='88964dca07-5'>Параметры запроса</h3>
 <table><thead>
