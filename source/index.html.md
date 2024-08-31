@@ -477,7 +477,7 @@ curl "https://api.selsup.ru/api/product/findProduct?query=123&&count=true&sortBy
 }
 ```
 
-<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/findProduct">Полный список полей</a>
+<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/find">Полный список полей</a>
 
 Позволяет найти товары по фильтрам и поисковому запросу, либо просто получить все товары по порядку. Для выбора всех товаров лучше передавать sortBy=ID, чтобы новые товары не изменяли порядок сортировки. count=true лучше передавать только в первом запросе. Метод не отдает полную информацию о товаре, только основные поля, которые отображаются на списке товаров. Чтобы получить полную информацию о карточке, необходимо запросить ее по ID модели.
 
@@ -668,7 +668,7 @@ barcodes | array of ProductBarcode | Список штрих-кодов
 
 ## Создание модели
 
-<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/createModel">Полный список полей</a>
+<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/create">Полный список полей</a>
 
 ```shell
 curl -X POST "https://api.selsup.ru/api/product/createModel" \
@@ -802,7 +802,7 @@ name | string | Да | Название товара полное
 
 ## Редактирование модели
 
-<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/updateModel">Полный список полей</a>
+<a href="https://api.selsup.ru/all.html#tag/Tovary/operation/update">Полный список полей</a>
 
 ```shell
 curl -X POST "https://api.selsup.ru/api/product/updateModel" \
@@ -1186,10 +1186,10 @@ deleted | boolean | Помечен удаленным?
 
 ## Создание заказа с сайта
 
-<a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/createOrder">Полный список полей</a>
+<a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/orderNew">Полный список полей</a>
 
 ```shell
-curl -X POST "https://api.selsup.ru/api/order/createOrder" \
+curl -X POST "https://api.selsup.ru/api/order/" \
   -H "Authorization: <token>" -data '{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "RETAIL",
@@ -1263,7 +1263,7 @@ productId | int64 | Да | Идентификатор товара в SelSup. П
 ## Создание отгрузки на маркетплейс
 
 ```shell
-curl -X POST "https://api.selsup.ru/api/order/createOrder" \
+curl -X POST "https://api.selsup.ru/api/order/" \
   -H "Authorization: <token>" -data '{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "FBM",
@@ -1302,7 +1302,7 @@ curl -X POST "https://api.selsup.ru/api/order/createOrder" \
 
 ### Запрос
 
-`POST https://api.selsup.ru/api/order/createOrder`
+`POST https://api.selsup.ru/api/order`
 
 ### Тело запроса JSON с ключами
 
@@ -1469,7 +1469,7 @@ page, чтобы выбрать все данные, пока количеств
 начиная с указанной даты
 
 ```shell
-curl "https://api.selsup.ru/api/order/findOrder?type=FBS&modifiedDate=2024-06-20T15:00:00Z" \
+curl "https://api.selsup.ru/api/order/find?type=FBS&modifiedDate=2024-06-20T15:00:00Z" \
   -H "Authorization: <token>"
 ```
 

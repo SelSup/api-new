@@ -322,6 +322,9 @@
             <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
           </li>
           <li>
+            <a href="#selsup" class="toc-h1 toc-link" data-title="Разработка приложений для SelSup">Разработка приложений для SelSup</a>
+          </li>
+          <li>
             <a href="#e46b2ed83a" class="toc-h1 toc-link" data-title="Загрузка файлов">Загрузка файлов</a>
           </li>
           <li>
@@ -365,16 +368,30 @@
                   <li>
                     <a href="#da445bf6b8" class="toc-h2 toc-link" data-title="Получение списка заказов">Получение списка заказов</a>
                   </li>
+                  <li>
+                    <a href="#a36574c7b4" class="toc-h2 toc-link" data-title="Получение изменений заказов">Получение изменений заказов</a>
+                  </li>
               </ul>
           </li>
           <li>
             <a href="#3effb46a27" class="toc-h1 toc-link" data-title="Остатки">Остатки</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#selsup" class="toc-h2 toc-link" data-title="Остатки в SelSup">Остатки в SelSup</a>
+                    <a href="#selsup-2" class="toc-h2 toc-link" data-title="Остатки в SelSup">Остатки в SelSup</a>
                   </li>
                   <li>
                     <a href="#e7fa07f1aa" class="toc-h2 toc-link" data-title="Изменение остатков">Изменение остатков</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#dea976dfcc" class="toc-h1 toc-link" data-title="Добавление функций в магазин приложений">Добавление функций в магазин приложений</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#react" class="toc-h2 toc-link" data-title="React-расширения">React-расширения</a>
+                  </li>
+                  <li>
+                    <a href="#backend" class="toc-h2 toc-link" data-title="Backend интеграции">Backend интеграции</a>
                   </li>
               </ul>
           </li>
@@ -433,6 +450,8 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
 <p>Вы можете настроить Webhook, который будет отправлять HTTP/HTTPS запрос на адрес, который будет указан в кабинете. Возможна отправка POST или GET запроса в нужном формате с необходимыми заголовками.</p>
 
 <p>Так вы сможете настроить интеграцию с любой собственной системой или сайтом.</p>
+<h1 id='selsup'>Разработка приложений для SelSup</h1>
+<p>Вы можете создавать различные приложения для SelSup, которые будут расширять возможности SelSup и добавлять новые функции.</p>
 <h1 id='e46b2ed83a'>Загрузка файлов</h1><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/files/view?path=&lt;path&gt;"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
@@ -826,7 +845,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/findProduct">Полный список полей</a></p>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/find">Полный список полей</a></p>
 
 <p>Позволяет найти товары по фильтрам и поисковому запросу, либо просто получить все товары по порядку. Для выбора всех товаров лучше передавать sortBy=ID, чтобы новые товары не изменяли порядок сортировки. count=true лучше передавать только в первом запросе. Метод не отдает полную информацию о товаре, только основные поля, которые отображаются на списке товаров. Чтобы получить полную информацию о карточке, необходимо запросить ее по ID модели.</p>
 <h3 id='88964dca07'>Параметры запроса</h3>
@@ -1389,7 +1408,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
 </tr>
 </tbody></table>
 <h2 id='1cfa8f12c1'>Создание модели</h2>
-<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/createModel">Полный список полей</a></p>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/create">Полный список полей</a></p>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/product/createModel"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "article": "Уникальный артикул товара",
@@ -1637,7 +1656,7 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
 </tr>
 </tbody></table>
 <h2 id='3eb901a267'>Редактирование модели</h2>
-<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/updateModel">Полный список полей</a></p>
+<p><a href="https://api.selsup.ru/all.html#tag/Tovary/operation/update">Полный список полей</a></p>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/product/updateModel"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "article": "Уникальный артикул товара",
@@ -2325,8 +2344,8 @@ Aliexpress, Яндекс.Маркет, СберМегаМаркет, Леруа 
 </tr>
 </tbody></table>
 <h1 id='22ac8458d7'>Заказы</h1><h2 id='752c630b66'>Создание заказа с сайта</h2>
-<p><a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/createOrder">Полный список полей</a></p>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/createOrder"</span> <span class="se">\</span>
+<p><a href="https://api.selsup.ru/all.html#tag/Zakazy/operation/orderNew">Полный список полей</a></p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "RETAIL",
@@ -2464,7 +2483,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Идентификатор товара в SelSup. Передается в ответе findProduct</td>
 </tr>
 </tbody></table>
-<h2 id='69733566a2'>Создание отгрузки на маркетплейс</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/createOrder"</span> <span class="se">\</span>
+<h2 id='69733566a2'>Создание отгрузки на маркетплейс</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"https://api.selsup.ru/api/order/"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span> <span class="nt">-data</span> <span class="s1">'{
   "name": "Название заказа если нужно уникальность не проверяется",
   "type": "FBM",
@@ -2499,7 +2518,7 @@ productId - идентификатор товара в SelSup. Сделать э
 информацию о заказе и список товаров в заказе. В качестве уникального ключа, для того, чтобы не создавать дубликаты
 используется externalOrderId</p>
 <h3 id='5c196ee857'>Запрос</h3>
-<p><code>POST https://api.selsup.ru/api/order/createOrder</code></p>
+<p><code>POST https://api.selsup.ru/api/order</code></p>
 <h3 id='json'>Тело запроса JSON с ключами</h3>
 <table><thead>
 <tr>
@@ -2584,7 +2603,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Не указана цена у позиции заказа products[index].price</td>
 </tr>
 </tbody></table>
-<h2 id='da445bf6b8'>Получение списка заказов</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/order/findOrder?type=FBS&amp;actual=true&amp;count=true"</span> <span class="se">\</span>
+<h2 id='da445bf6b8'>Получение списка заказов</h2><div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/order/findOrder?type=FBS&amp;actual=true&amp;count=false&amp;limit=100&amp;page=1"</span> <span class="se">\</span>
   <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
 </code></pre></div>
 <blockquote>
@@ -2699,10 +2718,18 @@ productId - идентификатор товара в SelSup. Сделать э
   </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Позволяет получить список заказов с фильтрацией и поиском. В данном методе содержимое заказа не отдается сразу, чтобы
-получить заказы сразу с товарами, используйте другой метод /api/fbs/findOrder. Если нужно получить общее количество -
-необходимо обязательно проставить count=true. Лучше count=true ставить только в первом запросе - далее не передавать</p>
-<h3 id='88964dca07-5'>Параметры запроса</h3>
+<p>Параметр count отвечает за подсчет общего количества заказов по указанному запросу. Лучше передавать значение false,
+если вам не нужно знать общее количество заказов, тк подсчет количества может занимать продолжительное время, 
+особенно если по запросу выбирается большое количество заказов. Лучше запрашивать постоянно изменяя параметр
+page, чтобы выбрать все данные, пока количество равно лимиту, который вы передаете в запросе.</p>
+<h2 id='a36574c7b4'>Получение изменений заказов</h2>
+<p>Вы можете выбирать заказы, которые изменились с последней даты получения заказов. При этом мог изменится 
+состав заказа, параметры заказа или статус. В заказе отдается поле modifiedDate по которому вы можете выбирать
+заказы. В фильтрах есть поле modifiedDate в котором указывается дата и отдаются заказы которые изменились
+начиная с указанной даты</p>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.selsup.ru/api/order/find?type=FBS&amp;modifiedDate=2024-06-20T15:00:00Z"</span> <span class="se">\</span>
+  <span class="nt">-H</span> <span class="s2">"Authorization: &lt;token&gt;"</span>
+</code></pre></div><h3 id='88964dca07-5'>Параметры запроса</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -2954,7 +2981,7 @@ productId - идентификатор товара в SelSup. Сделать э
 <td>Текстовый штрих-код на этикетки заказа</td>
 </tr>
 </tbody></table>
-<h1 id='3effb46a27'>Остатки</h1><h2 id='selsup'>Остатки в SelSup</h2>
+<h1 id='3effb46a27'>Остатки</h1><h2 id='selsup-2'>Остатки в SelSup</h2>
 <p>Остатки товаров в SelSup привязываются к SKU - единице хранения на складе. Каждому товару присваивается свой номер SKU и в дальнейшем можно указать одинаковый SKU для нескольких разных товаров в SelSup.</p>
 
 <p>Вы можете использовать две схемы хранения остатков в SelSup:
@@ -2970,6 +2997,23 @@ productId - идентификатор товара в SelSup. Сделать э
 </blockquote>
 
 <p>Позволяет для SKU изменить остатки товаров на складе. Работает для всех схем хранения, как с уникальными кодами, так и без них</p>
+<h1 id='dea976dfcc'>Добавление функций в магазин приложений</h1>
+<p>Вы можете разрабатывать расширения SelSup, которые добавляют различные возможности в SelSup. Существует несколько
+возможных вариантов встраивания функций в SelSup</p>
+<h2 id='react'>React-расширения</h2>
+<p>Вы можете разрабатывать расширения для SelSup реализуя функциональные React компоненты, которые встраиваются 
+в различные места кабинета SelSup и взаимодействуют с API SelSup или API внешних сервисов. Внешнему сервису 
+необходимо разрешить принимать запросы с домена selsup.ru. При этом вы можете использовать все стандартные 
+компоненты SelSup и добавлять свои собственные</p>
+
+<p>Клонируйте репозиторий демо-компонента SelSup и начните разрабатывать React-расширение.</p>
+
+<p><a href="https://github.com/SelSup/component">https://github.com/SelSup/component</a></p>
+<h2 id='backend'>Backend интеграции</h2>
+<p>Вы можете реализовать на Java один из вариантов интеграции: маркетплейс (интеграция по остаткам, заказам, товарам, 
+ценам) или служба доставки, реализовав соответствующий интерфейс SelSup. Код компонента попадет в основную
+ветку SelSup и будет доступен для использования вашим платным или бесплатным расширением. Вы сможете обновлять функции 
+вашего расширения и изменения будут регулярно попадать в новые релизы SelSup.</p>
 
       </div>
       <div class="dark-box">
